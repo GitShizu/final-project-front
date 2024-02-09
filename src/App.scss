@@ -1,0 +1,77 @@
+//=================== VARIABLES =========================
+
+//==================== COLORS =====================
+
+$teal-primary: rgb(37, 192, 158);
+$teal-secondary: rgb(21, 163, 132);
+$dark-grey-1: rgba(35, 36, 36, 0.973);
+$dark-grey-2: rgb(52, 54, 54);
+
+//================== FONT SIZES ===================
+
+$f-size-xs: 0.85rem;
+$f-size-s: 1rem;
+$f-size-m: 1.15rem;
+$f-size-l: 1.35rem;
+$f-size-xl: 2rem;
+$f-size-xxl: 3rem;
+
+//===================== GAPS ======================
+
+$gap-xs : 0.5rem;
+$gap-s : 0.75rem;
+$gap-m : 1rem;
+$gap-l : 1.5rem;
+$gap-xl : 3rem;
+$gap-xxl : 5rem;
+
+//==================== OTHER ======================
+
+$shadow: 1px 10px 16px 0px rgba(0, 0, 0, 0.4);
+
+//================== COMPONENTS =========================
+
+//===================== NAVBAR ====================
+.app-container {
+    background-color: $dark-grey-1;
+    nav {
+        padding: .5rem 3rem;
+        background-color: $dark-grey-2;
+
+        & menu {
+            font-size: $f-size-m;
+            display: flex;
+            gap: $gap-xxl;
+            justify-content: space-between;
+            align-items: center;
+            .logo-container{
+                display: flex;
+                align-items: center;
+                height: 100%;
+                font-size: $f-size-xl;
+                margin-right: auto;
+                .logo{
+                    display: block;
+                    color: $teal-primary;
+                    transition: 0.3s;
+                    &:hover{
+                        rotate: 360deg;
+                    }     
+                }
+            }
+           
+            .navlink {
+               
+                color: $teal-secondary;
+                &:hover {
+                    color: $teal-primary;
+                }
+
+                &.active {
+                    color: $teal-primary;
+                    font-size: $f-size-l;
+                }
+            }
+        }
+    }
+}
