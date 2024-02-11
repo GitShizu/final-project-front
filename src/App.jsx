@@ -9,11 +9,11 @@ import Navbar from './components/Navbar'
 
 function App() {
 
-  const { user } = useUser()
-
+  const { userData } = useUser()
+  
   return (
     <section className='app-container'>
-      <Navbar user={user}/>
+      <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path={'/signup'} element={<SignUser type='signup' />} />

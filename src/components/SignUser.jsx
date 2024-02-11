@@ -16,23 +16,23 @@ export default ({ type }) => {
         password2: ''
     })
 
-    const signUser =  (e) => {
+    const signUser = (e) => {
         e.preventDefault()
         if (type == 'login') {
-             logIn(formData)
+            logIn(formData)
         } else {
-             signUp(formData)
+            signUp(formData)
         }
         navigate('/')
     }
 
     return (
-        <div className="form-container auth">
+        <div className="form-wrapper container">
 
             <h1>{title}</h1>
-            <form>
+            <form className="form">
 
-                <div className="input-container">
+                <div className="input-box">
                     <label>email</label>
                     <input
                         value={formData.email}
@@ -44,7 +44,7 @@ export default ({ type }) => {
                         }}
                         type='email' />
                 </div>
-                <div className="input-container">
+                <div className="input-box">
                     <label>password</label>
                     <input
                         value={formData.password}
@@ -58,7 +58,7 @@ export default ({ type }) => {
                 </div>
                 {type === 'signup' &&
                     <>
-                        <div className="input-container">
+                        <div className="input-box">
                             <label>confirm password</label>
                             <input
                                 value={formData.password2}

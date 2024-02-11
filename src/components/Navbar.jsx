@@ -3,23 +3,29 @@ import Home from "./Home"
 import Playlists from "./Playlists"
 import SignUser from "./SignUser"
 import { SiViaplay } from "react-icons/si";
+import { useUser } from "../../context/UserContext";
 
 
-export default ({ user }) => {
+export default () => {
+
+  const {user,logOut} = useUser()
+
   return (
     <nav className="navbar">
       <menu>
+        <figure className="logo-container">
+          <Link to={'/'} element={<Home />} >
+            <SiViaplay className="logo" />
+          </Link>
+        </figure>
         {user &&
           <>
-            <figure className="logo-container">
-              <Link to={'/'} element={<Home />} >
-                <SiViaplay className="logo" />
-              </Link>
-            </figure>
-
-
-            <NavLink className={'navlink'} to={'/playlists'} element={<Playlists />} >Playlists</NavLink>
-
+            <li><NavLink className={'navlink'} to={'/playlists'} element={<Playlists />} >Playlists</NavLink></li>
+            <li
+            onClick={()=>{
+              logOut()
+            }}
+            >Log out</li>
           </>
         }
         {!user &&
