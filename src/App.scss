@@ -2,8 +2,9 @@
 
 //==================== COLORS =====================
 
-$teal-primary: rgb(37, 192, 158);
+$teal-primary: #1fdbb2;
 $teal-secondary: rgb(21, 163, 132);
+$purple: #6C4AE8;
 $dark-grey-1: rgba(35, 36, 36, 0.973);
 $dark-grey-2: rgb(52, 54, 54);
 
@@ -45,18 +46,11 @@ $shadow: 1px 10px 16px 0px rgba(0, 0, 0, 0.4);
             justify-content: space-between;
             align-items: center;
             .logo-container{
-                display: flex;
-                align-items: center;
-                height: 100%;
-                font-size: $f-size-xl;
-                margin-right: auto;
+                display: grid;
+                place-content: center;
                 .logo{
                     display: block;
-                    color: $teal-primary;
-                    transition: 0.3s;
-                    &:hover{
-                        rotate: 360deg;
-                    }     
+                    color: $teal-primary;   
                 }
             }
            

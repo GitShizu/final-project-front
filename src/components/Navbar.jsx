@@ -2,29 +2,30 @@ import { Link, NavLink } from "react-router-dom"
 import Home from "../pages/Home"
 import Playlists from "../pages/Playlists"
 import SignUser from "../pages/SignUser"
-import { SiViaplay } from "react-icons/si";
 import { useUser } from "../../context/UserContext";
 
 
 export default () => {
 
-  const {user,logOut} = useUser()
+  const { user, logOut } = useUser()
 
   return (
     <nav className="navbar">
       <menu>
-        <figure className="logo-container">
-          <Link to={'/'} element={<Home />} >
-            <SiViaplay className="logo" />
-          </Link>
-        </figure>
+
+        <Link className='logo' to={'/'} element={<Home />} >
+          <figure className="logo-container">
+            <img src="./public/logo_teal_purple.svg" alt="Logo" />
+          </figure>
+        </Link>
+
         {user &&
           <>
             <li><NavLink className={'navlink'} to={'/playlists'} element={<Playlists />} >Playlists</NavLink></li>
             <li
-            onClick={()=>{
-              logOut()
-            }}
+              onClick={() => {
+                logOut()
+              }}
             >Log out</li>
           </>
         }

@@ -32,7 +32,7 @@ export default ({ type }) => {
             <h1>{title}</h1>
             <form className="form">
 
-                <div className="input-box">
+                <div className="input-wrapper">
                     <label>email</label>
                     <input
                         value={formData.email}
@@ -44,7 +44,7 @@ export default ({ type }) => {
                         }}
                         type='email' />
                 </div>
-                <div className="input-box">
+                <div className="input-wrapper">
                     <label>password</label>
                     <input
                         value={formData.password}
@@ -58,7 +58,7 @@ export default ({ type }) => {
                 </div>
                 {type === 'signup' &&
                     <>
-                        <div className="input-box">
+                        <div className="input-wrapper">
                             <label>confirm password</label>
                             <input
                                 value={formData.password2}

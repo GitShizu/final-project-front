@@ -85,7 +85,7 @@ export const UserProvider = ({ children }) => {
             user: null
         })
     }
-    console.log(userData);
+    
     const value = {
         ...userData,
         logIn,
