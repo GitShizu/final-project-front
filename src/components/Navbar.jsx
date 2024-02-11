@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom"
-import Home from "./Home"
-import Playlists from "./Playlists"
-import SignUser from "./SignUser"
+import Home from "../pages/Home"
+import Playlists from "../pages/Playlists"
+import SignUser from "../pages/SignUser"
 import { SiViaplay } from "react-icons/si";
 import { useUser } from "../../context/UserContext";
 

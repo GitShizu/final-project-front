@@ -20,7 +20,7 @@ export default () => {
                 setError(e.message)
                 console.error(e.message)
             })
-    },[])
+    }, [])
 
     return (<>
         <section className="page playlists">
@@ -37,23 +37,28 @@ export default () => {
                                 :
                                 <div className="list-wrapper container">
                                     <ul>
-                                        {playlists.map((p,i)=>{
-                                            <li key={`plst_${i}`}>
-                                                <Link
-                                                to={`/playlists/${p.slug}`}
-                                                className="link"
-                                                >
-                                                {`${p.title} ${p.track_list.length}Songs`}
-                                                </Link>
-                                                <button
-                                                className="btn remove-btn"
-                                                onClick={()=>{
-                                                    removePlaylist(p.slug)
-                                                }}
-                                                >
+                                        {playlists.map((p, i) => {
+                                            return (<>
+                                                <li 
+                                                classname='l-item' 
+                                                key={`plst_${i}`}>
+                                                    <Link
+                                                        to={`/playlists/${p.slug}`}
+                                                        className="link l-item-link"
+                                                    >
+                                                        {`${p.title} ${p.track_list.length}${p.track_list.length === 1?'Song':'Songs'}`}
+                                                    </Link>
+                                                    <button
+                                                        className="btn remove-btn"
+                                                        onClick={() => {
+                                                            removePlaylist(p.slug)
+                                                        }}
+                                                    >
+                                                    Remove
+                                                    </button>
+                                                </li>
+                                            </>)
 
-                                                </button>
-                                            </li>
                                         })}
                                     </ul>
                                 </div>

@@ -1,16 +1,16 @@
 import './App.scss'
 import { useUser } from '../context/UserContext'
 import { NavLink, Route, Routes } from 'react-router-dom'
-import Home from './components/Home'
-import Playlists from './components/Playlists'
-import SignUser from './components/SignUser'
-import SinglePlaylist from './components/SinglePlaylist'
+import Home from './pages/Home'
+import Playlists from './pages/Playlists'
+import SignUser from './pages/SignUser'
+import SinglePlaylist from './pages/SinglePlaylist'
 import Navbar from './components/Navbar'
 
 function App() {
 
   const { userData } = useUser()
-  
+
   return (
     <section className='app-container'>
       <Navbar/>
