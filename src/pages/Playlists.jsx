@@ -21,7 +21,7 @@ export default () => {
 
     useEffect(() => {
         axios.get(`${VITE_API_URL}/playlists`, axiosHeaders(token))
-            .then(obj => setPlaylists(obj.data)
+            .then(res => setPlaylists(res.data)
             )
             .catch(e => {
                 setError(e.message)
@@ -32,7 +32,8 @@ export default () => {
 
     const addPlaylist = (playlist)=>{
         axios.post(`${VITE_API_URL}/playlists`, playlist, axiosHeaders(token))
-            .then(() => {
+            .then(res => {
+                setPlaylists(res.data)
                 setFeedback('Playlist added successfully')
                 setNewPlaylist(blankPlaylist)
             })
@@ -44,7 +45,8 @@ export default () => {
 
     const removePlaylist = (slug) => {
         axios.delete(`${VITE_API_URL}/playlists/${slug}`, axiosHeaders(token))
-            .then(() => {
+            .then(res => {
+                setPlaylists(res.data)
                 setFeedback('Playlist deleted successfully')
             }).catch(e => console.error(e.message))
     }

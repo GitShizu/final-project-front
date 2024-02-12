@@ -80,6 +80,7 @@ export const UserProvider = ({ children }) => {
         }
     }
     //logIn è sostanzialmente uguale a signUp, cambia solo la rotta della chiamata POST.
+    
     const logOut = () => {
         setUserData({
             user: null

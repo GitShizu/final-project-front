@@ -6,10 +6,10 @@ import Playlists from './pages/Playlists'
 import SignUser from './pages/SignUser'
 import SinglePlaylist from './pages/SinglePlaylist'
 import Navbar from './components/Navbar'
+import Tracks from './pages/Tracks'
+import SingleTrack from './pages/SingleTrack'
 
 function App() {
-
-  const { userData } = useUser()
 
   return (
     <section className='app-container'>
@@ -21,6 +21,10 @@ function App() {
         <Route path={'/playlists'} >
           <Route index element={<Playlists/>} />
           <Route path={':slug'} element={<SinglePlaylist />} />
+        </Route>
+        <Route path={'/tracks'} >
+          <Route index element={<Tracks/>} />
+          <Route path={':slug'} element={<SingleTrack />} />
         </Route>
       </Routes>
     </section>

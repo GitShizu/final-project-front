@@ -2,9 +2,9 @@
 
 //==================== COLORS =====================
 
-$teal-primary: #1fdbb2;
-$teal-secondary: rgb(21, 163, 132);
-$purple: #6C4AE8;
+$teal-primary: hsl(167, 75%, 49%);
+$teal-secondary: #15a384;
+$purple: hsl(253, 77%, 60%);
 $dark-grey-1: rgba(35, 36, 36, 0.973);
 $dark-grey-2: rgb(52, 54, 54);
 
@@ -50,7 +50,6 @@ $shadow: 1px 10px 16px 0px rgba(0, 0, 0, 0.4);
                 place-content: center;
                 .logo{
                     display: block;
-                    color: $teal-primary;   
                 }
             }
            
