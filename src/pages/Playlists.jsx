@@ -64,7 +64,7 @@ export default () => {
                             {playlists.length === 0 ?
                                 <p>No playlists found</p>
                                 :
-                                <div className="list-wrapper container">
+                                <div className="playlists list-wrapper container">
                                     <ul>
                                         {playlists.map((p, i) => {
                                             return (
@@ -94,7 +94,7 @@ export default () => {
                             }
                         </>
                     }
-                    <div className="form-wrapper container">
+                    <div className="playlists form-wrapper container">
                         <h2>Add new Playlist</h2>
 
                         <div className="input-wrapper">

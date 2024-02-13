@@ -18,7 +18,7 @@ export default () => {
 
         <Link className='logo' to={'/'} element={<Home />} >
           <figure className="logo-container">
-            {/* <PiWaveformFill className='logo' /> */}
+            <PiWaveformFill className='logo' />
           </figure>
         </Link>
 

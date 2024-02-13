@@ -11,6 +11,7 @@ export default () => {
 
     const blankTrack = {
         title: '',
+        author:'',
         duration_sec: 0,
         slug: ''
     }
@@ -65,7 +66,7 @@ export default () => {
                             {tracks.length === 0 ?
                                 <p>No tracks found</p>
                                 :
-                                <div className="list-wrapper container">
+                                <div className="tracks list-wrapper container">
                                     <ul>
                                         {tracks.map((t, i) => {
                                             return (
@@ -95,7 +96,7 @@ export default () => {
                             }
                         </>
                     }
-                    <div className="form-wrapper container">
+                    <div className="tracks form-wrapper container">
                         <form action="">
                             <h2>Add new Track</h2>
 
