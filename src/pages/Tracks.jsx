@@ -81,7 +81,7 @@ export default () => {
                                                         {`${t.title} ${t.author} ${t.duration_sec}`}
                                                     </Link>
                                                     <button
-                                                        className="btn remove-btn"
+                                                        className="btn remove"
                                                         onClick={() => {
                                                             removeTrack(t.slug)
                                                         }}
@@ -145,6 +145,7 @@ export default () => {
                         </form>
 
                         <button
+                            className="btn"
                             onClick={() => {
                                 addTrack(newTrack)
                             }}

@@ -1,7 +1,7 @@
 //=========== GENERIC ===========
 
 $teal-primary: rgb(37, 192, 158);
-
+$light-grey: rgb(203, 206, 206);
 :root {
   font-family: sans-serif;
   font-size: 16px;
@@ -14,16 +14,21 @@ $teal-primary: rgb(37, 192, 158);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: $light-grey;
 }
 
 img{
   max-width: 100%;
 }
 
+input{
+  background-color: transparent;
+}
+
 a {
   font-weight: 500;
   text-decoration: none;
-  color: white;
+  color: $light-grey;
 }
 
 li {
@@ -32,6 +37,7 @@ li {
 
 button {
   cursor: pointer;
+  color: black;
   transition: border-color 0.25s;
 }
 

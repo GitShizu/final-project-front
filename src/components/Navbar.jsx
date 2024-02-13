@@ -16,11 +16,11 @@ export default () => {
     <nav className="navbar">
       <menu>
 
-        <Link className='logo' to={'/'} element={<Home />} >
-          <figure className="logo-container">
+        <figure className="logo-container">
+          <Link to={'/'} element={<Home />} >
             <PiWaveformFill className='logo' />
-          </figure>
-        </Link>
+          </Link>
+        </figure>
 
         {user &&
           <>

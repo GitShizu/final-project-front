@@ -79,7 +79,7 @@ export default () => {
                                                         {`${p.title} ${p.track_list.length}${p.track_list.length === 1 ? 'Song' : 'Songs'}`}
                                                     </Link>
                                                     <button
-                                                        className="btn remove-btn"
+                                                        className="btn remove"
                                                         onClick={() => {
                                                             removePlaylist(p.slug)
                                                         }}

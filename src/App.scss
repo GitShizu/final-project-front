@@ -1,9 +1,7 @@
-//=================== VARIABLES =========================
-
 //==================== COLORS =====================
 
 $teal-primary: hsl(167, 75%, 49%);
-$teal-secondary: #15a384;
+$teal-secondary: hsla(167, 75%, 49%, 0.65);
 $purple: hsl(253, 77%, 60%);
 $dark-grey-1: rgba(35, 36, 36, 0.973);
 $dark-grey-2: rgb(52, 54, 54);
@@ -28,47 +26,54 @@ $gap-xxl : 5rem;
 
 //==================== OTHER ======================
 
+$nav-height : 40px;
 $shadow: 1px 10px 16px 0px rgba(0, 0, 0, 0.4);
 
-//================== COMPONENTS =========================
+//================== SPECIFIC =========================
 
-//===================== NAVBAR ====================
 .app-container {
     background-color: $dark-grey-1;
+
     nav {
-        padding: .5rem 3rem;
+        height: $nav-height;
+        padding: $gap-xs $gap-m;
         background-color: $dark-grey-2;
 
         & menu {
+
+            li, li>* {
+                color: $teal-primary;
+            }
+
             font-size: $f-size-m;
             display: flex;
-            gap: $gap-xxl;
-            justify-content: space-between;
+            gap: $gap-m;
+            justify-content: flex-end;
             align-items: center;
-            .logo-container{
+
+            .logo-container {
                 display: grid;
                 place-content: center;
-                .logo{
+                margin-right: auto;
+                .logo {
                     display: block;
                 }
             }
-           
-            .navlink {
-               
-                color: $teal-secondary;
-                &:hover {
-                    color: $teal-primary;
-                }
 
+            .navlink {
                 &.active {
-                    color: $teal-primary;
-                    font-size: $f-size-l;
+                    color: $teal-secondary;
                 }
             }
         }
     }
 }
 
-.playlists.page {
-    height: 90vh;
+//================== GENERIC =========================
+
+.page {
+    height: calc(100vh - $nav-height);
+    display: grid;
+    grid-template-columns: 1fr 40vw;
+    padding: $gap-m;
 }

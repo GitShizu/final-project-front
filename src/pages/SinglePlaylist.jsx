@@ -14,10 +14,8 @@ export default () => {
     const [error, setError] = useState();
     const [feedback, setFeedback] = useState();
     const [playlist, setPlaylist] = useState();
-    const blankFormData = {
-        title: '',
-    }
-    const [plstNewData, setPlstNewData] = useState(blankFormData)
+    const blankPlaylist = { title: '' }
+    const [plstNewData, setPlstNewData] = useState(blankPlaylist)
     const [tracks, setTracks] = useState();
     const navigate = useNavigate()
 
@@ -32,7 +30,7 @@ export default () => {
                 console.log(e.message)
                 setError(true)
             })
-    }, [])
+    }, [slug])
 
     useEffect(() => {
         axios.get(`${VITE_API_URL}/tracks`, axiosHeaders(token))
@@ -48,22 +46,45 @@ export default () => {
 
     const editPlaylist = () => {
         const validData = {}
-        Object.entries(validData).forEach(([key, value]) => {
+        Object.entries(plstNewData).forEach(([key, value]) => {
             if (value !== '' && value !== undefined) {
                 validData[key] = value
             }
         })
+
         if (Object.keys(validData).length > 0) {
 
-            axios.patch(`${VITE_API_URL}/playlists/${slug}`, axiosHeaders(token))
+            axios.patch(`${VITE_API_URL}/playlists/${slug}`, validData, axiosHeaders(token))
                 .then(res => {
                     setPlaylist(res.data)
                     setFeedback('Playlist updated')
                     navigate(`/playlists/${res.data.slug}`)
+                    setPlstNewData(blankPlaylist)
                 })
         }
     }
 
+    const addTrack = (trackId) => {
+        axios.patch(`${VITE_API_URL}/playlists/${slug}`, { track_list: trackId }, axiosHeaders(token))
+            .then(res => {
+                setPlaylist(res.data)
+                setFeedback('Track added')
+            }).catch(e => {
+                setFeedback('There was an error')
+                console.error(e)
+            })
+    }
+
+    const removeTrack = (index) => {
+        axios.patch(`${VITE_API_URL}/playlists/${slug}/remove_track`, { remove: index }, axiosHeaders(token))
+            .then(res => {
+                setPlaylist(res.data)
+                setFeedback('Track removed')
+            }).catch(e => {
+                setFeedback('There was an error')
+                console.error(e)
+            })
+    }
 
     return (<>
         {error ?
@@ -99,35 +120,67 @@ export default () => {
                                         }}
                                     >Edit</button>
                                 </div>
-                            </section>
-                            {tracks.length === 0 ?
-                                <div>
-                                    <p>No tracks found</p>
-                                </div>
-                                :
-                                <section className="tracks list-wrapper container">
+                                <div className="list-wrapper container">
                                     <ul>
-                                        {tracks.map((t, i) => {
+                                        {playlist.track_list.map((t, i) => {
                                             return (
                                                 <li
                                                     className='l-item'
-                                                    key={`trk_${i}`}
+                                                    key={`curr_trk_${i}`}
                                                 >
-                                                    {`${t.title} ${t.author} ${t.duration_sec}`}
-
+                                                    <Link
+                                                        to={`/tracks/${t.slug}`}
+                                                        className="link l-item-link"
+                                                    >
+                                                        {`${t.title} ${t.author} ${t.duration_sec}`}
+                                                    </Link>
                                                     <button
-                                                        className="btn"
+                                                        className="btn remove"
                                                         onClick={() => {
-
+                                                            removeTrack(t.slug)
                                                         }}
                                                     >
-                                                        Add
+                                                        Remove
                                                     </button>
                                                 </li>
                                             )
                                         })}
                                     </ul>
-                                </section>
+                                </div>
+                            </section>
+                            {tracks === undefined ?
+                                <p>Loading...</p>
+                                :
+                                <>
+                                    {tracks.length === 0 ?
+                                        <div>
+                                            <p>No tracks found</p>
+                                        </div>
+                                        :
+                                        <section className="tracks list-wrapper container">
+                                            <ul>
+                                                {tracks.map((t, i) => {
+                                                    return (
+                                                        <li
+                                                            className='l-item'
+                                                            key={`trk_${i}`}
+                                                        >
+                                                            {`${t.title} ${t.author} ${t.duration_sec}`}
+                                                            <button
+                                                                className="btn add"
+                                                                onClick={() => {
+                                                                    addTrack(t._id)
+                                                                }}
+                                                            >
+                                                                +
+                                                            </button>
+                                                        </li>
+                                                    )
+                                                })}
+                                            </ul>
+                                        </section>
+                                    }
+                                </>
                             }
                         </section>
                     </>
