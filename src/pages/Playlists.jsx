@@ -43,7 +43,7 @@ export default () => {
             })
     }
 
-    const removePlaylist = (slug) => {
+    const deletePlaylist = (slug) => {
         axios.delete(`${VITE_API_URL}/playlists/${slug}`, axiosHeaders(token))
             .then(res => {
                 setPlaylists(res.data)
@@ -81,7 +81,7 @@ export default () => {
                                                     <button
                                                         className="btn remove"
                                                         onClick={() => {
-                                                            removePlaylist(p.slug)
+                                                            deletePlaylist(p.slug)
                                                         }}
                                                     >
                                                         Remove

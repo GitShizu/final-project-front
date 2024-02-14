@@ -11,15 +11,15 @@ export default () => {
     const { token } = useUser()
     const { slug } = useParams()
 
+    const blankPlaylist = { title: '' }
     const [error, setError] = useState();
     const [feedback, setFeedback] = useState();
     const [playlist, setPlaylist] = useState();
-    const blankPlaylist = { title: '' }
     const [plstNewData, setPlstNewData] = useState(blankPlaylist)
     const [tracks, setTracks] = useState();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    //============================== GET DI PLAYLISTS E TRACKS ==============================
+    //============================== GET DI PLAYLIST E TRACKS ==============================
 
     useEffect(() => {
         axios.get(`${VITE_API_URL}/playlists/${slug}`, axiosHeaders(token))
@@ -64,10 +64,10 @@ export default () => {
         }
     }
 
-    const removePlaylist = (slug) => {
+    const deletePlaylist = (slug) => {
         axios.delete(`${VITE_API_URL}/playlists/${slug}`, axiosHeaders(token))
             .then(res => {
-                setFeedback('Playlist deleted successfully')
+                setFeedback('Playlist deleted')
                 navigate('/playlists')
             }).catch(e => console.error(e.message))
     }
@@ -104,7 +104,7 @@ export default () => {
                     :
                     <>
                         <section className="page single-plst">
-                            <section className="single-plst container">
+                            <article className="single-plst container">
                                 <div className="single-plst info">
                                     <h1>{playlist.title}</h1>
                                     <h3>Edit</h3>
@@ -123,7 +123,7 @@ export default () => {
                                             type='text' />
                                     </div>
                                     <div className="button-wrapper container">
-                                        <button className="btn"
+                                        <button className="btn edit"
                                             onClick={() => {
                                                 editPlaylist(plstNewData)
                                             }}
@@ -131,7 +131,7 @@ export default () => {
                                         <button
                                             className="btn remove"
                                             onClick={() => {
-                                                removePlaylist(playlist.slug)
+                                                deletePlaylist(playlist.slug)
                                             }}
                                         >
                                         Delete
@@ -166,7 +166,7 @@ export default () => {
                                         })}
                                     </ul>
                                 </div>
-                            </section>
+                            </article>
                             {tracks === undefined ?
                                 <p>Loading...</p>
                                 :
@@ -183,7 +183,7 @@ export default () => {
                                                     return (
                                                         <li
                                                             className='l-item'
-                                                            key={`trk_${i}`}
+                                                            key={`sp_trk_${i}`}
                                                         >
                                                             {`${t.title} ${t.author} ${t.duration_sec}`}
                                                             <button

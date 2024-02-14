@@ -9,13 +9,7 @@ export default () => {
 
     const { token } = useUser();
 
-    const blankTrack = {
-        title: '',
-        author:'',
-        duration_sec: 0,
-        slug: ''
-    }
-
+    const blankTrack = {title: '', author:'', duration_sec: 0}
     const [tracks, setTracks] = useState();
     const [newTrack, setNewTrack] = useState(blankTrack)
     const [error, setError] = useState();

@@ -5,3 +5,8 @@ export const axiosHeaders = (token) =>{
         }
     }
 }
+
+export const secondsToMinutes = (totalSeconds)=>{
+    const hours = Math.floor(totalSeconds/60*60)
+    const decimalMinutes = (totalSeconds - (decimalHours*60)*60)
+}

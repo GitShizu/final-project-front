@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
     const changeUserData = (newData) => {
         setUserData(newData);
         localStorage.setItem('user_data', JSON.stringify(newData))
-    }
+    } 
 
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
