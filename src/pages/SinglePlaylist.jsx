@@ -3,7 +3,7 @@ import NotFound from "../components/NotFound"
 import { useUser } from "../../context/UserContext";
 import axios from "axios";
 import { axiosHeaders } from "../../libraries/utilities";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 const { VITE_API_URL } = import.meta.env;
 
 export default () => {
@@ -19,7 +19,7 @@ export default () => {
     const [tracks, setTracks] = useState();
     const navigate = useNavigate()
 
-    //===================================== GET DI PLAYLISTS E TRACKS =====================================
+    //============================== GET DI PLAYLISTS E TRACKS ==============================
 
     useEffect(() => {
         axios.get(`${VITE_API_URL}/playlists/${slug}`, axiosHeaders(token))
@@ -62,6 +62,14 @@ export default () => {
                     setPlstNewData(blankPlaylist)
                 })
         }
+    }
+
+    const removePlaylist = (slug) => {
+        axios.delete(`${VITE_API_URL}/playlists/${slug}`, axiosHeaders(token))
+            .then(res => {
+                setFeedback('Playlist deleted successfully')
+                navigate('/playlists')
+            }).catch(e => console.error(e.message))
     }
 
     const addTrack = (trackId) => {
@@ -114,13 +122,24 @@ export default () => {
                                             }}
                                             type='text' />
                                     </div>
-                                    <button className="btn"
-                                        onClick={() => {
-                                            editPlaylist(plstNewData)
-                                        }}
-                                    >Edit</button>
+                                    <div className="button-wrapper container">
+                                        <button className="btn"
+                                            onClick={() => {
+                                                editPlaylist(plstNewData)
+                                            }}
+                                        >Edit</button>
+                                        <button
+                                            className="btn remove"
+                                            onClick={() => {
+                                                removePlaylist(playlist.slug)
+                                            }}
+                                        >
+                                        Delete
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="list-wrapper container">
+                                    <h2>Current tracks:</h2>
                                     <ul>
                                         {playlist.track_list.map((t, i) => {
                                             return (
@@ -137,10 +156,10 @@ export default () => {
                                                     <button
                                                         className="btn remove"
                                                         onClick={() => {
-                                                            removeTrack(t.slug)
+                                                            removeTrack(i)
                                                         }}
                                                     >
-                                                        Remove
+                                                        X
                                                     </button>
                                                 </li>
                                             )
@@ -158,6 +177,7 @@ export default () => {
                                         </div>
                                         :
                                         <section className="tracks list-wrapper container">
+                                            <h2>Add existent tracks to playlist</h2>
                                             <ul>
                                                 {tracks.map((t, i) => {
                                                     return (
