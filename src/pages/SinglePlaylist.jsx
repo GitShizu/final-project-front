@@ -44,9 +44,9 @@ export default () => {
 
     //===================================== FUNZIONI =====================================
 
-    const editPlaylist = () => {
+    const editPlaylist = (newData) => {
         const validData = {}
-        Object.entries(plstNewData).forEach(([key, value]) => {
+        Object.entries(newData).forEach(([key, value]) => {
             if (value !== '' && value !== undefined) {
                 validData[key] = value
             }

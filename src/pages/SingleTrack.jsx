@@ -44,9 +44,9 @@ export default () => {
 
     //===================================== FUNZIONI =====================================
 
-    const editTrack = () => {
+    const editTrack = (newData) => {
         const validData = {}
-        Object.entries(trkNewData).forEach(([key, value]) => {
+        Object.entries(newData).forEach(([key, value]) => {
             if (value !== '' && value !== undefined) {
                 validData[key] = value
             }
@@ -58,7 +58,7 @@ export default () => {
                     setTrack(res.data)
                     setFeedback('Track updated')
                     navigate(`/tracks/${res.data.slug}`)
-                    setTrkNewData(blankPlaylist)
+                    setTrkNewData(blankTrack)
                 })
         }
     }
@@ -141,13 +141,15 @@ export default () => {
                                             </div>
                                             <div className="button-wrapper container">
                                                 <button className="btn edit"
-                                                    onClick={() => {
+                                                    onClick={(e) => {
+                                                        e.preventDefault()
                                                         editTrack(trkNewData)
                                                     }}
                                                 >Edit</button>
                                                 <button
                                                     className="btn remove"
-                                                    onClick={() => {
+                                                    onClick={(e) => {
+                                                        e.preventDefault()
                                                         deleteTrack(track.slug)
                                                     }}
                                                 >
