@@ -21,7 +21,7 @@ export const UserProvider = ({ children }) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const signUp = async ({ email, password, password2 }) => {
+    const signUp = async ({ display_name, email, password, password2 }) => {
 
         if (loading) return;
         // Se loading è true significa che è già in corso un'operazione
@@ -40,6 +40,7 @@ export const UserProvider = ({ children }) => {
         //viene lanciato un errore. 
         try {
             const { data: userAndToken } = await axios.post(`${VITE_API_URL}/auth/signup`, {
+                display_name,
                 email,
                 password
             })

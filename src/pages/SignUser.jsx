@@ -11,6 +11,7 @@ export default ({ type }) => {
 
     const title = type === 'login' ? 'Log In' : 'Sign Up';
     const [formData, setFormData] = useState({
+        display_name: '',
         email: '',
         password: '',
         password2: ''
@@ -32,6 +33,20 @@ export default ({ type }) => {
             <h1>{title}</h1>
             <form className="form">
 
+                {type === 'signup' &&
+                    <div className="input-wrapper">
+                        <label>User Name</label>
+                        <input
+                            value={formData.display_name}
+                            onChange={(e) => {
+                                setFormData({
+                                    ...formData,
+                                    display_name: e.target.value
+                                })
+                            }}
+                            type='text' />
+                    </div>
+                }
                 <div className="input-wrapper">
                     <label>email</label>
                     <input

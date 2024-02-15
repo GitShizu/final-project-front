@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import Home from "../pages/Home"
 import Playlists from "../pages/Playlists"
 import SignUser from "../pages/SignUser"
@@ -10,6 +10,7 @@ import { PiWaveformFill } from "react-icons/pi";
 
 export default () => {
 
+  const navigate = useNavigate()
   const { user, logOut } = useUser()
 
   return (

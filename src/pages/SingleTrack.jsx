@@ -178,7 +178,12 @@ export default () => {
                                                             className="l-item"
                                                             key={`st_plst_${i}`}
                                                         >
-                                                            {`${p.title} ${p.track_list.length} ${p.track_list.length === 1 ? 'Song' : 'Songs'}`}
+                                                            <Link
+                                                                to={`/playlists/${p.slug}`}
+                                                                className="link l-item-link"
+                                                            >
+                                                                {`${p.title} ${p.track_list.length}${p.track_list.length === 1 ? 'Song' : 'Songs'}`}
+                                                            </Link>
                                                             <button
                                                                 className="btn add"
                                                                 onClick={() => {
