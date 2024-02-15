@@ -25,14 +25,15 @@ export default () => {
         {user &&
           <>
             <li>
-              <NavLink className={'navlink'} to={'/playlists'} element={<Playlists />} >Playlists</NavLink>
+              <NavLink className={'navlink'} to={'/playlists'} end>Playlists</NavLink>
             </li>
             <li>
-              <NavLink className={'navlink'} to={'/tracks'} element={<Tracks />} >Tracks</NavLink>
+              <NavLink className={'navlink'} to={'/tracks'} end>Tracks</NavLink>
             </li>
             <li
               onClick={() => {
                 logOut()
+                navigate('/login')
               }}
             >Log out</li>
           </>
