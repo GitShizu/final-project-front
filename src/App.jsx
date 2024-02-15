@@ -8,6 +8,7 @@ import SinglePlaylist from './pages/SinglePlaylist'
 import Navbar from './components/Navbar'
 import Tracks from './pages/Tracks'
 import SingleTrack from './pages/SingleTrack'
+import NotFound from './components/NotFound'
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
           <Route index element={<Tracks />} />
           <Route path={':slug'} element={<SingleTrack />} />
         </Route>
+        <Route path="*" element={<NotFound/>}/>
       </Routes>
     </section>
   )

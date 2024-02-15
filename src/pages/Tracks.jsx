@@ -9,7 +9,7 @@ export default () => {
 
     const { token } = useUser();
 
-    const blankTrack = {title: '', author:'', duration_sec: 0}
+    const blankTrack = { title: '', author: '', duration_sec: 0 }
     const [tracks, setTracks] = useState();
     const [newTrack, setNewTrack] = useState(blankTrack)
     const [error, setError] = useState();
@@ -136,15 +136,17 @@ export default () => {
                                     }}
                                     type='text' />
                             </div>
+                            <button
+                                className="btn"
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    addTrack(newTrack)
+                                }}
+                            >Add
+                            </button>
                         </form>
 
-                        <button
-                            className="btn"
-                            onClick={() => {
-                                addTrack(newTrack)
-                            }}
-                        >Add
-                        </button>
+
                     </div>
                 </>
             }
