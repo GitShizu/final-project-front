@@ -4,7 +4,11 @@ import Playlists from "../pages/Playlists"
 import SignUser from "../pages/SignUser"
 import { useUser } from "../../context/UserContext";
 import Tracks from "../pages/Tracks";
-import { PiWaveformFill } from "react-icons/pi";
+import mainLogo from "../assets/TPP_logo.png";
+import { FaRegUserCircle } from "react-icons/fa";
+import { FaCircleUser } from "react-icons/fa6";
+
+
 
 
 
@@ -19,7 +23,7 @@ export default () => {
 
         <figure className="logo-container">
           <Link to={'/'} element={<Home />} >
-            <PiWaveformFill className='logo' />
+            <img className="logo" src={mainLogo} alt="logo" />
           </Link>
         </figure>
 
@@ -31,13 +35,19 @@ export default () => {
             <li>
               <NavLink className={'navlink'} to={'/tracks'} end>Tracks</NavLink>
             </li>
-            <li
-              onClick={() => {
-                logOut()
-                navigate('/login')
-              }}
-            >Log out</li>
-            <span>{user.display_name}</span>
+            
+            <div className="user">
+              <span>{user.display_name}</span>
+              <FaCircleUser />
+              <div
+                className="logout"
+                onClick={() => {
+                  logOut()
+                  navigate('/login')
+                }}
+              >Log out
+              </div>
+            </div>
           </>
         }
         {!user &&

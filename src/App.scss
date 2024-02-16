@@ -3,10 +3,11 @@
 $teal-primary: #1fdbb2;
 $teal-secondary: #199479;
 $blue: #1E798D;
-$light-grey-1: #E4E4E4;
-$light-grey-2: #899895;
+$light-grey-1: #899895;
+$light-grey-2: #E4E4E4;
 $dark-grey-1: rgba(35, 36, 36, 0.973);
 $dark-grey-2: rgb(52, 54, 54);
+$dark-grey-3: rgb(65, 68, 68);
 
 //================== FONT SIZES ===================
 
@@ -19,6 +20,7 @@ $f-size-xxl: 3rem;
 
 //===================== GAPS ======================
 
+$gap-xxs: 0.25rem;
 $gap-xs : 0.5rem;
 $gap-s : 0.75rem;
 $gap-m : 1rem;
@@ -40,42 +42,105 @@ $shadow: 1px 10px 16px 0px rgba(0, 0, 0, 0.4);
         height: $nav-height;
         padding: $gap-xs $gap-m;
         background-color: $dark-grey-2;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid $teal-secondary;
 
         & menu {
+            width: 100%;
+            display:flex;
+            justify-content: space-between;
 
-            li, li>* {
+            li,
+            li>* {
                 color: $teal-primary;
             }
 
             font-size: $f-size-m;
             display: flex;
-            gap: $gap-m;
-            justify-content: flex-end;
+            gap: $gap-l;
+            justify-content: center;
             align-items: center;
 
             .logo-container {
-                display: grid;
-                place-content: center;
-                margin-right: auto;
                 .logo {
                     display: block;
+                    width: 30px;
                 }
             }
 
             .navlink {
+                font-size: $f-size-s;
+                text-transform: uppercase;
+                text-shadow: 1px 1px 2px $dark-grey-1;
+
                 &.active {
                     color: $teal-secondary;
                 }
+            }
+
+            .user {
+                margin-left: auto;
+                background-color: rgba(0, 0, 0, 0.1);
+                padding: 0.25rem 0.5rem;
+                align-self: flex-end;
+                border-radius: 1em;
+                display: flex;
+                align-items: center;
+                gap: $gap-xs;
+                font-size: $f-size-xs;
+                color: $teal-primary;
             }
         }
     }
 }
 
 //================== GENERIC =========================
+.btn{
+    display: grid;
+    place-content: center;
+    font-size: inherit;
+    padding: .25em .5em;
+    border-radius: 0.5em;
+    border: 1px solid rgba(0, 0, 0, 0);
 
+}
 .page {
     height: calc(100vh - $nav-height);
     display: grid;
-    grid-template-columns: 1fr 40vw;
+    grid-template-columns: 1fr 1fr;
     padding: $gap-m;
+    gap: $gap-l;
+}
+
+.container {
+    background-color: $dark-grey-2;
+    padding: $gap-s;
+    border-radius: 0.5em;
+    display: grid;
+    box-shadow: $shadow;
+}
+
+.list-wrapper {
+    .l-item{
+        padding: $gap-xxs $gap-xxs $gap-xxs $gap-xs ;
+        border-radius: 0 .5em .5em 0;
+        display: flex;
+        align-items: center;
+        border: 1px solid $dark-grey-3;
+        &:hover{
+            border: 1px solid $teal-secondary;
+        }
+    }
+    .l-item:nth-child(even) {
+        background-color: $dark-grey-3;
+    }
+    .btn.remove{
+        margin-left: auto;
+        color: #1fdbb2;
+        background-color: $light-grey-2;
+        .trash_icon {
+            fill: $teal-secondary;
+          }
+    }
 }

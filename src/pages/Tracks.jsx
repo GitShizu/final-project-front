@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { useUser } from "../../context/UserContext"
 import { axiosHeaders } from "../../libraries/utilities"
 const { VITE_API_URL } = import.meta.env
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 export default () => {
 
@@ -80,7 +81,7 @@ export default () => {
                                                             removeTrack(t.slug)
                                                         }}
                                                     >
-                                                        Remove
+                                                        <RiDeleteBin6Line className="trash_icon"/>
                                                     </button>
                                                 </li>
                                             )
