@@ -37,6 +37,7 @@ export default () => {
                 navigate('/login')
               }}
             >Log out</li>
+            <span>{user.display_name}</span>
           </>
         }
         {!user &&

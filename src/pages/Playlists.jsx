@@ -7,11 +7,13 @@ const { VITE_API_URL } = import.meta.env
 
 export default () => {
 
-    const { token } = useUser();
+    const { user, token } = useUser();
 
     const blankPlaylist = {
         title: '',
-        track_list: []
+        track_list: [],
+        is_public: false,
+        created_by: ''
     }
 
     const [playlists, setPlaylists] = useState();
@@ -30,7 +32,7 @@ export default () => {
     }, [])
     //===================================== FUNCTIONS =====================================
 
-    const addPlaylist = (playlist)=>{
+    const addPlaylist = (playlist) => {
         axios.post(`${VITE_API_URL}/playlists`, playlist, axiosHeaders(token))
             .then(res => {
                 setPlaylists(res.data)
@@ -95,27 +97,51 @@ export default () => {
                         </>
                     }
                     <div className="playlists form-wrapper container">
-                        <h2>Add new Playlist</h2>
-
-                        <div className="input-wrapper">
-                            <label>title</label>
-                            <input
-                                value={newPlaylist.title}
-                                onChange={(e) => {
-                                    setNewPlaylist(
-                                        {...newPlaylist,
-                                            title: e.target.value
-                                        }
-                                    )
+                        <form className="form">
+                            <h2>Add new Playlist</h2>
+                            <div className="toggle wrapper">
+                                <input
+                                    id="p_toggle"
+                                    type="checkbox"
+                                    checked={newPlaylist.is_public}
+                                    onChange={(e) => {
+                                        setNewPlaylist(
+                                            {
+                                                ...newPlaylist,
+                                                is_public: e.target.checked
+                                            }
+                                        )
+                                    }}
+                                />
+                                <label htmlFor="p_toggle">
+                                    Set as public
+                                </label>
+                            </div>
+                            <div className="input-wrapper">
+                                <label>title</label>
+                                <input
+                                    value={newPlaylist.title}
+                                    onChange={(e) => {
+                                        setNewPlaylist(
+                                            {
+                                                ...newPlaylist,
+                                                title: e.target.value
+                                            }
+                                        )
+                                    }}
+                                    type='text' />
+                            </div>
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    addPlaylist({
+                                        ...newPlaylist,
+                                        created_by: user._id
+                                    })
                                 }}
-                                type='text' />
-                        </div>
-                        <button
-                        onClick={()=>{
-                            addPlaylist(newPlaylist)
-                        }}
-                        >Add
-                        </button>
+                            >Add
+                            </button>
+                        </form>
 
                     </div>
                 </>

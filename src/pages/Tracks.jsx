@@ -7,9 +7,9 @@ const { VITE_API_URL } = import.meta.env
 
 export default () => {
 
-    const { token } = useUser();
+    const { user, token } = useUser();
 
-    const blankTrack = { title: '', author: '', duration_sec: 0 }
+    const blankTrack = { title: '', author: '', duration_sec: 0,is_public: false }
     const [tracks, setTracks] = useState();
     const [newTrack, setNewTrack] = useState(blankTrack)
     const [error, setError] = useState();
@@ -93,7 +93,24 @@ export default () => {
                     <div className="tracks form-wrapper container">
                         <form action="">
                             <h2>Add new Track</h2>
-
+                            <div className="toggle wrapper">
+                                <input
+                                    id="t_toggle"
+                                    type="checkbox"
+                                    checked={newTrack.is_public}
+                                    onChange={(e) => {
+                                        setNewTrack(
+                                            {
+                                                ...newTrack,
+                                                is_public: e.target.checked
+                                            }
+                                        )
+                                    }}
+                                />
+                                <label htmlFor="t_toggle">
+                                    Set as public
+                                </label>
+                            </div>
                             <div className="input-wrapper">
                                 <label>title</label>
                                 <input
@@ -140,7 +157,10 @@ export default () => {
                                 className="btn"
                                 onClick={(e) => {
                                     e.preventDefault()
-                                    addTrack(newTrack)
+                                    addTrack({
+                                        ...newTrack,
+                                        created_by: user._id    
+                                    })
                                 }}
                             >Add
                             </button>

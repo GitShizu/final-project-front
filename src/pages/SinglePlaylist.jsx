@@ -93,7 +93,6 @@ export default () => {
                 console.error(e)
             })
     }
-
     return (<>
         {error ?
             <NotFound />

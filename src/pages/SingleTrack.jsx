@@ -8,7 +8,7 @@ const { VITE_API_URL } = import.meta.env;
 
 export default () => {
 
-    const { token } = useUser()
+    const { user, token } = useUser()
     const { slug } = useParams()
 
     const blankTrack = { title: '', author: '', duration_sec: 0 }
@@ -34,7 +34,13 @@ export default () => {
 
     useEffect(() => {
         axios.get(`${VITE_API_URL}/playlists`, axiosHeaders(token))
-            .then(obj => setPlaylists(obj.data)
+            .then(res => {
+                const filteredList = res.data.filter((plst)=>{
+                    return (
+                        plst.created_by.toString() === user._id.toString()
+                        )
+                })
+                setPlaylists(filteredList)}
             )
             .catch(e => {
                 setError(e.message)
@@ -80,7 +86,6 @@ export default () => {
                 console.error(e)
             })
     }
-
     return (<>
         {error ?
             <NotFound />
