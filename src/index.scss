@@ -26,6 +26,18 @@ input{
   background-color: transparent;
 }
 
+// Chrome, safari, edge, opera
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    appearance: none; 
+}
+
+// Firefox 
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 a {
   font-weight: 500;
   text-decoration: none;
@@ -36,11 +48,6 @@ li {
   list-style-type: none;
 }
 
-button {
-  cursor: pointer;
-  color: black;
-  transition: border-color 0.25s;
-}
 
 button:hover {
   border-color: $teal-primary;

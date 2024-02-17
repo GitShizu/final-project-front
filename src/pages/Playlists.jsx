@@ -60,47 +60,11 @@ export default () => {
                 <p> {error}</p>
                 :
                 <>
-                    {playlists === undefined ?
-                        <p>Loading</p>
-                        :
-                        <>
-                            {playlists.length === 0 ?
-                                <p>No playlists found</p>
-                                :
-                                <div className="playlists list-wrapper container">
-                                    <ul>
-                                        {playlists.map((p, i) => {
-                                            return (
-                                                <li
-                                                    className='l-item'
-                                                    key={`plst_${i}`}
-                                                >
-                                                    <Link
-                                                        to={`/playlists/${p.slug}`}
-                                                        className="link l-item-link"
-                                                    >
-                                                        {`${p.title} ${p.track_list.length}${p.track_list.length === 1 ? 'Song' : 'Songs'}`}
-                                                    </Link>
-                                                    <button
-                                                        className="btn remove"
-                                                        onClick={() => {
-                                                            deletePlaylist(p.slug)
-                                                        }}
-                                                    >
-                                                        <RiDeleteBin6Line className="trash_icon"/>
-                                                    </button>
-                                                </li>
-                                            )
-                                        })}
-                                    </ul>
-                                </div>
-                            }
-                        </>
-                    }
-                    <div className="playlists form-wrapper container">
+                    <article className="playlists form-wrapper container">
+                        <h2>Add new Playlist</h2>
                         <form className="form">
-                            <h2>Add new Playlist</h2>
-                            <div className="toggle wrapper">
+                            <div className="toggle-wrapper">
+                            <span>{newPlaylist.is_public ? 'Public' : 'Private'}</span>
                                 <input
                                     id="p_toggle"
                                     type="checkbox"
@@ -115,12 +79,11 @@ export default () => {
                                     }}
                                 />
                                 <label htmlFor="p_toggle">
-                                    Set as public
                                 </label>
                             </div>
                             <div className="input-wrapper">
-                                <label>title</label>
                                 <input
+                                    required
                                     value={newPlaylist.title}
                                     onChange={(e) => {
                                         setNewPlaylist(
@@ -131,20 +94,67 @@ export default () => {
                                         )
                                     }}
                                     type='text' />
+                                <label>title</label>
                             </div>
-                            <button
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    addPlaylist({
-                                        ...newPlaylist,
-                                        created_by: user._id
-                                    })
-                                }}
-                            >Add
-                            </button>
+                            <div className="button-wrapper">
+                                <button
+                                    className="btn add"
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        addPlaylist({
+                                            ...newPlaylist,
+                                            created_by: user._id
+                                        })
+                                    }}
+                                >Add
+                                </button>
+                            </div>
+
                         </form>
 
-                    </div>
+                    </article>
+
+                    {playlists === undefined ?
+                        <p>Loading</p>
+                        :
+                        <>
+                            {playlists.length === 0 ?
+                                <p>No playlists found</p>
+                                :
+                                <article className="playlists container">
+                                    <div className="list-wrapper">
+                                        <ul>
+                                            {playlists.map((p, i) => {
+                                                return (
+                                                    <li
+                                                        className='l-item'
+                                                        key={`plst_${i}`}
+                                                    >
+                                                        <Link
+                                                            to={`/playlists/${p.slug}`}
+                                                            className="link l-item-link"
+                                                        >
+                                                            {`${p.title} ${p.track_list.length}${p.track_list.length === 1 ? 'Song' : 'Songs'}`}
+                                                        </Link>
+                                                        <button
+                                                            className="btn remove"
+                                                            onClick={() => {
+                                                                deletePlaylist(p.slug)
+                                                            }}
+                                                        >
+                                                            <RiDeleteBin6Line className="trash_icon" />
+                                                        </button>
+                                                    </li>
+                                                )
+                                            })}
+                                        </ul>
+                                    </div>
+
+                                </article>
+                            }
+                        </>
+                    }
+
                 </>
             }
         </section >

@@ -144,7 +144,7 @@ export default () => {
                                                     }}
                                                     type='number' />
                                             </div>
-                                            <div className="button-wrapper container">
+                                            <div className="button-wrapper">
                                                 <button className="btn edit"
                                                     onClick={(e) => {
                                                         e.preventDefault()

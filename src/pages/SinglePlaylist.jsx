@@ -121,7 +121,7 @@ export default () => {
                                             }}
                                             type='text' />
                                     </div>
-                                    <div className="button-wrapper container">
+                                    <div className="button-wrapper">
                                         <button className="btn edit"
                                             onClick={() => {
                                                 editPlaylist(plstNewData)
@@ -137,7 +137,7 @@ export default () => {
                                         </button>
                                     </div>
                                 </div>
-                                <div className="list-wrapper container">
+                                <div className="list-wrapper">
                                     <h2>Current tracks:</h2>
                                     <ul>
                                         {playlist.track_list.map((t, i) => {

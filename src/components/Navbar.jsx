@@ -1,16 +1,9 @@
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import Home from "../pages/Home"
-import Playlists from "../pages/Playlists"
-import SignUser from "../pages/SignUser"
+import SignUser from "../components/SignUser"
 import { useUser } from "../../context/UserContext";
-import Tracks from "../pages/Tracks";
 import mainLogo from "../assets/TPP_logo.png";
-import { FaRegUserCircle } from "react-icons/fa";
 import { FaCircleUser } from "react-icons/fa6";
-
-
-
-
 
 export default () => {
 
