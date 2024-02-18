@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
+import InfoBox from "./InfoBox";
 
 
 
@@ -29,77 +31,91 @@ export default ({ type }) => {
 
     return (
         <section className="page signup">
-            <div className="form-wrapper container">
+            {loading ?
+                <Loading />
+                :
+                <div className=" form-wrapper container">
 
-                <h1>{title}</h1>
-                <form className="form">
+                    <h1>{title}</h1>
+                    <form className="form">
 
-                    {type === 'signup' &&
-                        <div className="input-wrapper">
-                            <label>User Name</label>
-                            <input
-                                value={formData.display_name}
-                                onChange={(e) => {
-                                    setFormData({
-                                        ...formData,
-                                        display_name: e.target.value
-                                    })
-                                }}
-                                type='text' />
-                        </div>
-                    }
-                    <div className="input-wrapper">
-                        <label>email</label>
-                        <input
-                            value={formData.email}
-                            onChange={(e) => {
-                                setFormData({
-                                    ...formData,
-                                    email: e.target.value
-                                })
-                            }}
-                            type='email' />
-                    </div>
-                    <div className="input-wrapper">
-                        <label>password</label>
-                        <input
-                            value={formData.password}
-                            onChange={(e) => {
-                                setFormData({
-                                    ...formData,
-                                    password: e.target.value
-                                })
-                            }}
-                            type='password' />
-                    </div>
-                    {type === 'signup' &&
-                        <>
+                        {type === 'signup' &&
                             <div className="input-wrapper">
-                                <label>confirm password</label>
                                 <input
-                                    value={formData.password2}
+                                    placeholder=""
+                                    required
+                                    value={formData.display_name}
                                     onChange={(e) => {
                                         setFormData({
                                             ...formData,
-                                            password2: e.target.value
+                                            display_name: e.target.value
                                         })
                                     }}
-                                    type='password' />
+                                    type='text' />
+                                <label>User Name</label>
                             </div>
-                        </>
+                        }
+                        <div className="input-wrapper">
+                            <input
+                                placeholder=""
+                                required
+                                value={formData.email}
+                                onChange={(e) => {
+                                    setFormData({
+                                        ...formData,
+                                        email: e.target.value
+                                    })
+                                }}
+                                type='email' />
+                            <label>email</label>
+                        </div>
+                        <div className="input-wrapper">
+                            <input
+                                placeholder=""
+                                required
+                                value={formData.password}
+                                onChange={(e) => {
+                                    setFormData({
+                                        ...formData,
+                                        password: e.target.value
+                                    })
+                                }}
+                                type='password' />
+                            <label>password</label>
+                        </div>
+                        {type === 'signup' &&
+                            <>
+                                <div className="input-wrapper">
+                                    <input
+                                        placeholder=""
+                                        required
+                                        value={formData.password2}
+                                        onChange={(e) => {
+                                            setFormData({
+                                                ...formData,
+                                                password2: e.target.value
+                                            })
+                                        }}
+                                        type='password' />
+                                    <label>confirm password</label>
+                                </div>
+                            </>
+                        }
+                        <div>
+                            <button
+                                className="btn sign-user"
+                                disabled={loading}
+                                onClick={(e) => signUser(e)}
+                            >
+                                {title}
+                            </button>
+                        </div>
+                    </form>
+                    {error &&
+                        <InfoBox type={'warning'} message={error.message}/>
                     }
-                    <div>
-                        <button
-                            disabled={loading}
-                            onClick={(e) => signUser(e)}
-                        >
-                            {title}
-                        </button>
-                    </div>
-                    {loading && <div>Loading...</div>}
-                    {error && <div>{error.message}</div>}
-                </form>
-            </div>
+                </div>
+            }
         </section>
     )
 }

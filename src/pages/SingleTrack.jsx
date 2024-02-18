@@ -35,12 +35,13 @@ export default () => {
     useEffect(() => {
         axios.get(`${VITE_API_URL}/playlists`, axiosHeaders(token))
             .then(res => {
-                const filteredList = res.data.filter((plst)=>{
+                const filteredList = res.data.filter((plst) => {
                     return (
                         plst.created_by.toString() === user._id.toString()
-                        )
+                    )
                 })
-                setPlaylists(filteredList)}
+                setPlaylists(filteredList)
+            }
             )
             .catch(e => {
                 setError(e.message)
@@ -105,6 +106,8 @@ export default () => {
                                             <div className="input-wrapper">
                                                 <label>Title</label>
                                                 <input
+                                                    placeholder=""
+                                                    required
                                                     value={trkNewData.title}
                                                     onChange={(e) => {
                                                         setTrkNewData(
@@ -119,6 +122,8 @@ export default () => {
                                             <div className="input-wrapper">
                                                 <label>Author</label>
                                                 <input
+                                                    placeholder=""
+                                                    required
                                                     value={trkNewData.author}
                                                     onChange={(e) => {
                                                         setTrkNewData(
@@ -133,6 +138,8 @@ export default () => {
                                             <div className="input-wrapper">
                                                 <label>Duration</label>
                                                 <input
+                                                    placeholder=""
+                                                    required
                                                     value={trkNewData.duration}
                                                     onChange={(e) => {
                                                         setTrkNewData(

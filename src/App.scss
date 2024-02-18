@@ -3,7 +3,7 @@
 $teal-primary: #1fdbb2;
 $teal-secondary: #199479;
 $blue: #1E798D;
-$orange: rgb(187, 53, 12);
+$orange: rgb(209, 82, 44);
 $light-grey-1: #969797;
 $light-grey-2: #E4E4E4;
 $dark-grey-1: rgba(35, 36, 36, 0.973);
@@ -54,18 +54,15 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
         & menu {
             width: 100%;
             display: flex;
-            justify-content: space-between;
+            justify-content: start;
+            font-size: $f-size-m;
+            gap: $gap-l;
+            align-items: center;
 
             li,
             li>* {
                 color: $teal-primary;
             }
-
-            font-size: $f-size-m;
-            display: flex;
-            gap: $gap-l;
-            justify-content: center;
-            align-items: center;
 
             .logo-container {
                 box-shadow: $button-shadow;
@@ -90,20 +87,62 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
             .user {
                 margin-left: auto;
                 background-color: rgba(0, 0, 0, 0.1);
-                padding: 0.25rem 0.5rem;
+                padding: 0.35rem .7rem;
                 align-self: flex-end;
                 border-radius: 1em;
                 display: flex;
                 align-items: center;
                 gap: $gap-xs;
                 font-size: $f-size-xs;
-                color: $teal-primary;
+
+                span {
+                    color: $teal-primary;
+                }
+
+                .logout {
+                    cursor: pointer;
+
+                    &:hover {
+                        color: $teal-primary;
+                    }
+                }
             }
         }
     }
 }
 
-//================== GENERIC =========================
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+.loading {
+    margin: auto;
+    height: 150px;
+    width:  150px;
+    img {
+        object-fit: cover;
+        animation: spin 1s infinite linear;
+    }
+}
+
+ .InfoBox{
+    width: fit-content;
+    padding: 0 1em;
+    background-color: $light-grey-2;
+    border-radius: 0.35em;
+    margin: auto;
+    .warning{
+        color: $orange;
+        font-weight: 500;
+    }
+}
+
 .btn {
     font-size: inherit;
     padding: .25em .5em;
@@ -120,12 +159,20 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
 }
 
 .page {
-    min-height: 100vh;
+    min-height: 100svh;
     display: grid;
     grid-template-rows: auto 1fr;
     justify-content: center;
     padding: calc($gap-m + $nav-height) $gap-m $gap-m $gap-m;
     gap: $gap-l;
+}
+
+.page.signup {
+    grid-template-rows: 1fr;
+
+    .form-wrapper.container {
+        margin-top: $gap-xxl;
+    }
 }
 
 .container {
@@ -136,6 +183,8 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     display: grid;
     box-shadow: $section-shadow;
 }
+
+
 
 .playlists.container,
 .tracks.container {
@@ -164,21 +213,60 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
             border: 1px solid $dark-grey-4;
 
             a {
-                display: flex;
-                gap: $gap-xs;
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: $gap-m;
 
-                figure {
-                    height: 32px;
-                    width: 32px;
-                    border-radius: 0.35em;
-                    overflow: hidden;
+                .core {
+                    min-width: 300px;
+                    display: flex;
+                    align-items: center;
+                    gap: $gap-m;
 
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-position: center;
-                        object-fit: cover;
+                    figure {
+                        height: 32px;
+                        width: 32px;
+                        border-radius: 0.35em;
+                        overflow: hidden;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-position: center;
+                            object-fit: cover;
+                        }
                     }
+
+                    span {
+                        font-weight: 300;
+                    }
+                }
+
+                .details {
+                    display: flex;
+                    gap: $gap-s;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    div {
+                        width: 100%;
+                        display: flex;
+                        gap: $gap-s;
+                        justify-content: start;
+                        align-items: center;
+
+                        span:first-child {
+                            font-size: $f-size-xs;
+                            color: $teal-secondary;
+                        }
+
+                        span:last-child {
+                            font-weight: 300;
+                            font-size: $f-size-s;
+                        }
+                    }
+
                 }
             }
 
@@ -210,11 +298,15 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     text-align: center;
     padding: $gap-m;
 
+    h1,
     h2 {
         text-transform: uppercase;
-        margin-bottom: $gap-m;
+        margin-top: $gap-m ;
+        margin-bottom: $gap-l ;
     }
 }
+
+
 
 .form {
     display: grid;
@@ -226,9 +318,11 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
         justify-self: right;
         align-items: center;
         gap: $gap-s;
-        span{
+
+        span {
             font-size: $f-size-xs;
         }
+
         label {
             display: flex;
             background-color: $orange;
@@ -254,8 +348,6 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
         input:checked+label {
             background-color: $teal-secondary;
         }
-
-        ;
 
         input:checked+label::before {
             transform: translateX(25px);
@@ -296,38 +388,44 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
             width: 250px;
         }
     }
-}
 
-.input-wrapper {
-    position: relative;
-    display: grid;
-    align-items: center;
+    .input-wrapper {
+        position: relative;
+        display: grid;
+        align-items: center;
 
-    & input {
-        padding: 1em;
-        border-radius: .35em;
-        outline: none;
-        border: 1px solid $teal-secondary;
+        & input {
+            padding: 1em;
+            border-radius: .35em;
+            outline: none;
+            border: 1px solid $teal-secondary;
+        }
+
+        & label {
+            font-size: $f-size-xs;
+            color: $light-grey-1;
+            pointer-events: none;
+            text-transform: uppercase;
+            position: absolute;
+            top: 1em;
+            left: .35em;
+            transition: .3s;
+            padding: 0 0.35em;
+            height: fit-content;
+        }
+
+        & input:focus+label,
+        & input:valid+label,
+        & input:not(:placeholder-shown)+label {
+            transform: translateX(.8em) translateY(-1.7em);
+            background-color: $teal-secondary;
+            color: $light-grey-2;
+            border-radius: .25em;
+        }
     }
 
-    & label {
-        font-size: $f-size-xs;
-        color: $light-grey-1;
-        pointer-events: none;
-        text-transform: uppercase;
-        position: absolute;
-        top: 1em;
-        left: .35em;
-        transition: .3s;
-        padding: 0 0.35em;
-        height: fit-content;
-    }
-
-    & input:focus+label,
-    & input:valid+label {
-        transform: translateX(.8em) translateY(-1.7em);
-        background-color: $teal-secondary;
-        color: $light-grey-2;
-        border-radius: .25em;
+    .btn.sign-user {
+        margin: $gap-m;
+        width: 250px;
     }
 }

@@ -2,9 +2,11 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { useUser } from "../../context/UserContext"
-import { axiosHeaders } from "../../libraries/utilities"
+import { axiosHeaders, formatDuration } from "../../libraries/utilities"
 const { VITE_API_URL } = import.meta.env
 import { RiDeleteBin6Line } from "react-icons/ri";
+import Loading from "../components/Loading"
+import InfoBox from "../components/InfoBox"
 
 export default () => {
 
@@ -54,10 +56,19 @@ export default () => {
             }).catch(e => console.error(e.message))
     }
 
+    const getDuration = (playlist)=>{
+        let duration = 0
+        playlist.track_list.forEach(t=>{
+            duration += t.duration_sec
+        })
+        const formattedDuration = formatDuration(duration)
+        return formattedDuration
+    }
+
     return (<>
         <section className="page playlists">
             {error ?
-                <p> {error}</p>
+                <InfoBox type={'warning'} message={error.message}/>
                 :
                 <>
                     <article className="playlists form-wrapper container">
@@ -83,6 +94,7 @@ export default () => {
                             </div>
                             <div className="input-wrapper">
                                 <input
+                                    placeholder=""
                                     required
                                     value={newPlaylist.title}
                                     onChange={(e) => {
@@ -115,11 +127,11 @@ export default () => {
                     </article>
 
                     {playlists === undefined ?
-                        <p>Loading</p>
+                        <Loading/>
                         :
                         <>
                             {playlists.length === 0 ?
-                                <p>No playlists found</p>
+                                <InfoBox type={'feedback'} message={'No playlists found'}/>
                                 :
                                 <article className="playlists container">
                                     <div className="list-wrapper">
@@ -134,7 +146,19 @@ export default () => {
                                                             to={`/playlists/${p.slug}`}
                                                             className="link l-item-link"
                                                         >
-                                                            {`${p.title} ${p.track_list.length}${p.track_list.length === 1 ? 'Song' : 'Songs'}`}
+                                                            <div className="core">
+                                                                <span>{p.title}</span>
+                                                            </div>
+                                                            <div className="details">
+                                                            <div>
+                                                                    <span>{'Tracks'}</span>
+                                                                    <span>{p.track_list.length}</span>
+                                                                </div>
+                                                                <div>
+                                                                    <span>{`duration`}</span>
+                                                                    <span>{getDuration(p)}</span>
+                                                                </div>
+                                                            </div>
                                                         </Link>
                                                         <button
                                                             className="btn remove"
@@ -149,7 +173,6 @@ export default () => {
                                             })}
                                         </ul>
                                     </div>
-
                                 </article>
                             }
                         </>

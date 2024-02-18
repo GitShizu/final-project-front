@@ -68,7 +68,7 @@ export default () => {
                         <form className="form">
                             <div className="toggle-wrapper">
                                 <span>{newTrack.is_public ? 'Public' : 'Private'}</span>
-                                <input 
+                                <input
                                     required
                                     id="t_toggle"
                                     type="checkbox"
@@ -88,6 +88,7 @@ export default () => {
                             <div className="input-group">
                                 <div className="input-wrapper">
                                     <input
+                                        placeholder=""
                                         required
                                         value={newTrack.title}
                                         onChange={(e) => {
@@ -103,6 +104,7 @@ export default () => {
                                 </div>
                                 <div className="input-wrapper">
                                     <input
+                                        placeholder=""
                                         required
                                         value={newTrack.author}
                                         onChange={(e) => {
@@ -121,6 +123,7 @@ export default () => {
                                         <input
                                             min='0'
                                             max='60'
+                                            placeholder=""
                                             required
                                             value={duration.min > 0 ? duration.min : ''}
                                             onChange={(e) => {
@@ -138,6 +141,7 @@ export default () => {
                                         <input
                                             min='0'
                                             max='60'
+                                            placeholder=""
                                             required
                                             value={duration.sec > 0 ? duration.min : ''}
                                             onChange={(e) => {
@@ -154,6 +158,7 @@ export default () => {
                                 </div>
                                 <div className="input-wrapper">
                                     <input
+                                        placeholder=""
                                         required
                                         value={newTrack.img_path}
                                         onChange={(e) => {
@@ -206,10 +211,23 @@ export default () => {
                                                             to={`/tracks/${t.slug}`}
                                                             className="link l-item-link"
                                                         >
-                                                            <figure>
-                                                                <img src={t.img_path} alt="Track image" />
-                                                            </figure>
-                                                            {`${t.title} ${t.author} ${formatDuration(t.duration_sec)}`}
+                                                            <div className="core">
+                                                                <figure>
+                                                                    <img src={t.img_path} alt="Track image" />
+                                                                </figure>
+                                                                <span>{t.title}</span>
+
+                                                            </div>
+                                                            <div className="details">
+                                                                <div>
+                                                                    <span>{`author: `}</span>
+                                                                    <span>{t.author}</span>
+                                                                </div>
+                                                                <div>
+                                                                    <span>{`duration: `}</span>
+                                                                    <span>{formatDuration(t.duration_sec)}</span>
+                                                                </div>
+                                                            </div>
                                                         </Link>
                                                         <button
                                                             className="btn remove"

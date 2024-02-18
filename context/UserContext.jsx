@@ -9,14 +9,14 @@ export const UserProvider = ({ children }) => {
 
     const storedData = localStorage.getItem('user_data');
 
-    const [userData, setUserData] = useState(storedData === undefined? {
-        user: null
-    }: JSON.parse(storedData))
+    const [userData, setUserData] = useState(storedData ?
+        JSON.parse(storedData)
+        : { user: null })
 
     const changeUserData = (newData) => {
         setUserData(newData);
         localStorage.setItem('user_data', JSON.stringify(newData))
-    } 
+    }
 
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
         // Se loading è true significa che è già in corso un'operazione
         // di signup o login. L'esecuzione viene interrotta. 
 
-        setError(null);         
+        setError(null);
         setLoading(true);
         //L'errore viene settato al valore iniziale null.
         //Lo state loading viene settato a true per impedire l'esecuzione
@@ -81,13 +81,13 @@ export const UserProvider = ({ children }) => {
         }
     }
     //logIn è sostanzialmente uguale a signUp, cambia solo la rotta della chiamata POST.
-    
+
     const logOut = () => {
-        setUserData({
+        changeUserData({
             user: null
         })
     }
-    
+
     const value = {
         ...userData,
         logIn,

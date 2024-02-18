@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import NotFound from "../components/NotFound"
 import { useUser } from "../../context/UserContext";
 import axios from "axios";
-import { axiosHeaders } from "../../libraries/utilities";
+import { axiosHeaders, formatDuration } from "../../libraries/utilities";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { VITE_API_URL } = import.meta.env;
 
@@ -110,6 +110,8 @@ export default () => {
                                     <div className="input-wrapper">
                                         <label>title</label>
                                         <input
+                                            placeholder=""
+                                            required
                                             value={plstNewData.title}
                                             onChange={(e) => {
                                                 setPlstNewData(
@@ -133,7 +135,7 @@ export default () => {
                                                 deletePlaylist(playlist.slug)
                                             }}
                                         >
-                                        Delete
+                                            Delete
                                         </button>
                                     </div>
                                 </div>
@@ -150,7 +152,19 @@ export default () => {
                                                         to={`/tracks/${t.slug}`}
                                                         className="link l-item-link"
                                                     >
-                                                        {`${t.title} ${t.author} ${t.duration_sec}`}
+                                                        <div className="core">
+                                                            <figure>
+                                                                <img src={t.img_path} alt="Track image" />
+                                                            </figure>
+                                                            <span>{t.title}</span>
+
+                                                        </div>
+                                                        <div className="details">
+                                                            <div>
+                                                                <span>{`duration: `}</span>
+                                                                <span>{formatDuration(t.duration_sec)}</span>
+                                                            </div>
+                                                        </div>
                                                     </Link>
                                                     <button
                                                         className="btn remove"
@@ -184,7 +198,28 @@ export default () => {
                                                             className='l-item'
                                                             key={`sp_trk_${i}`}
                                                         >
-                                                            {`${t.title} ${t.author} ${t.duration_sec}`}
+                                                            <Link
+                                                                to={`/tracks/${t.slug}`}
+                                                                className="link l-item-link"
+                                                            >
+                                                                <div className="core">
+                                                                    <figure>
+                                                                        <img src={t.img_path} alt="Track image" />
+                                                                    </figure>
+                                                                    <span>{t.title}</span>
+
+                                                                </div>
+                                                                <div className="details">
+                                                                    <div>
+                                                                        <span>{`author: `}</span>
+                                                                        <span>{t.author}</span>
+                                                                    </div>
+                                                                    <div>
+                                                                        <span>{`duration: `}</span>
+                                                                        <span>{formatDuration(t.duration_sec)}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
                                                             <button
                                                                 className="btn add"
                                                                 onClick={() => {
