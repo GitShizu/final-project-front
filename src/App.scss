@@ -36,7 +36,6 @@ $nav-height : 40px;
 $section-shadow: 1px 10px 16px 0px rgba(0, 0, 0, 0.4);
 $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
 
-
 .app-container {
     background-color: $dark-grey-1;
 
@@ -111,6 +110,8 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     }
 }
 
+
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -124,20 +125,22 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
 .loading {
     margin: auto;
     height: 150px;
-    width:  150px;
+    width: 150px;
+
     img {
         object-fit: cover;
         animation: spin 1s infinite linear;
     }
 }
 
- .InfoBox{
+.InfoBox {
     width: fit-content;
     padding: 0 1em;
     background-color: $light-grey-2;
     border-radius: 0.35em;
     margin: auto;
-    .warning{
+
+    .warning {
         color: $orange;
         font-weight: 500;
     }
@@ -158,6 +161,10 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     transition: border-color 0.25s;
 }
 
+.btn.remove {
+    background-color: $orange;
+}
+
 .page {
     min-height: 100svh;
     display: grid;
@@ -167,11 +174,101 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     gap: $gap-l;
 }
 
+.page.not-found{
+    grid-template-rows: none;
+    div{
+        background-color: $dark-grey-1;
+        padding: $gap-l;
+        margin: auto;
+        display: grid;
+        place-content: center;
+        font-size: $f-size-xxl;
+        text-transform: uppercase;
+    }
+}
+
 .page.signup {
     grid-template-rows: 1fr;
 
     .form-wrapper.container {
         margin-top: $gap-xxl;
+    }
+}
+
+.page.single-plst,
+.page.single-track {
+    display: flex;
+
+    .container {
+        min-height: 90svh;
+        grid-template-rows: auto 1fr;
+        gap: $gap-l;
+
+        h1,
+        h2 {
+            text-transform: uppercase;
+            font-size: $f-size-l;
+        }
+
+        .single-plst-wrapper,
+        .single-track-wrapper{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            h1{
+                margin: $gap-m 0;
+            }
+
+            figure{
+                height: 200px;
+                width: 200px;
+                border-radius: 0.35em;
+                border: 1px solid $teal-secondary;
+                overflow: hidden;
+                margin-bottom: $gap-m;
+                img{
+                    object-fit: cover;
+                }
+            }
+
+            .public{
+                color: $teal-primary;
+            }
+            .private {
+                color: $orange;
+            }
+
+            .info {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                gap: $gap-s;
+                span {
+                    color: $teal-secondary;
+                }
+            }
+
+            .form {
+                display: grid;
+                align-items: right;
+                margin: $gap-m 0;
+                .duration {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: $gap-s;
+        
+                    input {
+                        min-width: 78px;
+                    }
+                }
+            }
+
+            .button-wrapper {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+        .single-plst.list-wrapper{
+            text-align: left;
+        }
     }
 }
 
@@ -195,6 +292,10 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
 .list-wrapper {
     min-width: 40vw;
     max-width: 1000px;
+    text-align: center;
+    h2{
+        margin: $gap-m 0;
+    }
 
     ul {
 
@@ -204,11 +305,11 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
 
         .l-item {
             width: 100%;
+            min-height: 42px;;
             padding: $gap-xxs $gap-xxs $gap-xxs $gap-xs ;
             border-radius: .35em;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: grid;
+            grid-template-columns: 1fr 32px;
             gap: $gap-s;
             border: 1px solid $dark-grey-4;
 
@@ -216,10 +317,11 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
                 width: 100%;
                 display: grid;
                 grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr;
+                justify-content: space-between;
                 gap: $gap-m;
 
                 .core {
-                    min-width: 300px;
                     display: flex;
                     align-items: center;
                     gap: $gap-m;
@@ -246,16 +348,15 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
                 .details {
                     display: flex;
                     gap: $gap-s;
-                    justify-content: flex-end;
                     align-items: center;
 
                     div {
                         width: 100%;
-                        display: flex;
+                        display: grid;
+                        grid-template-columns: repeat(2,1fr);
                         gap: $gap-s;
-                        justify-content: start;
+                        justify-content: flex-start;
                         align-items: center;
-
                         span:first-child {
                             font-size: $f-size-xs;
                             color: $teal-secondary;
@@ -285,7 +386,6 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
                 height: 32px;
                 width: 32px;
                 color: $light-grey-2;
-                background-color: $orange;
                 box-shadow: none;
                 border: 1px solid $dark-grey-3;
             }
@@ -399,6 +499,7 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
             border-radius: .35em;
             outline: none;
             border: 1px solid $teal-secondary;
+            caret-color: $light-grey-2;
         }
 
         & label {
@@ -407,8 +508,7 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
             pointer-events: none;
             text-transform: uppercase;
             position: absolute;
-            top: 1em;
-            left: .35em;
+            left: 0.5rem;
             transition: .3s;
             padding: 0 0.35em;
             height: fit-content;
@@ -428,4 +528,8 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
         margin: $gap-m;
         width: 250px;
     }
+}
+
+.hide{
+    display: none !important;
 }

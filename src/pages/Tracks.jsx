@@ -229,7 +229,8 @@ export default () => {
                                                                 </div>
                                                             </div>
                                                         </Link>
-                                                        <button
+                                                        {user._id === t.created_by._id &&
+                                                            <button
                                                             className="btn remove"
                                                             onClick={() => {
                                                                 removeTrack(t.slug)
@@ -237,6 +238,7 @@ export default () => {
                                                         >
                                                             <RiDeleteBin6Line className="trash_icon" />
                                                         </button>
+                                                        }
                                                     </li>
                                                 )
                                             })}

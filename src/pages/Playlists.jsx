@@ -56,9 +56,9 @@ export default () => {
             }).catch(e => console.error(e.message))
     }
 
-    const getDuration = (playlist)=>{
+    const getDuration = (playlist) => {
         let duration = 0
-        playlist.track_list.forEach(t=>{
+        playlist.track_list.forEach(t => {
             duration += t.duration_sec
         })
         const formattedDuration = formatDuration(duration)
@@ -68,14 +68,14 @@ export default () => {
     return (<>
         <section className="page playlists">
             {error ?
-                <InfoBox type={'warning'} message={error.message}/>
+                <InfoBox type={'warning'} message={error.message} />
                 :
                 <>
                     <article className="playlists form-wrapper container">
                         <h2>Add new Playlist</h2>
                         <form className="form">
                             <div className="toggle-wrapper">
-                            <span>{newPlaylist.is_public ? 'Public' : 'Private'}</span>
+                                <span>{newPlaylist.is_public ? 'Public' : 'Private'}</span>
                                 <input
                                     id="p_toggle"
                                     type="checkbox"
@@ -127,11 +127,11 @@ export default () => {
                     </article>
 
                     {playlists === undefined ?
-                        <Loading/>
+                        <Loading />
                         :
                         <>
                             {playlists.length === 0 ?
-                                <InfoBox type={'feedback'} message={'No playlists found'}/>
+                                <InfoBox type={'feedback'} message={'No playlists found'} />
                                 :
                                 <article className="playlists container">
                                     <div className="list-wrapper">
@@ -150,7 +150,7 @@ export default () => {
                                                                 <span>{p.title}</span>
                                                             </div>
                                                             <div className="details">
-                                                            <div>
+                                                                <div>
                                                                     <span>{'Tracks'}</span>
                                                                     <span>{p.track_list.length}</span>
                                                                 </div>
@@ -160,14 +160,16 @@ export default () => {
                                                                 </div>
                                                             </div>
                                                         </Link>
-                                                        <button
-                                                            className="btn remove"
-                                                            onClick={() => {
-                                                                deletePlaylist(p.slug)
-                                                            }}
-                                                        >
-                                                            <RiDeleteBin6Line className="trash_icon" />
-                                                        </button>
+                                                        {user._id === p.created_by._id &&
+                                                            <button
+                                                                className="btn remove"
+                                                                onClick={() => {
+                                                                    deletePlaylist(p.slug)
+                                                                }}
+                                                            >
+                                                                <RiDeleteBin6Line className="trash_icon" />
+                                                            </button>
+                                                        }
                                                     </li>
                                                 )
                                             })}
