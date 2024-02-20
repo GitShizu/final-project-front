@@ -29,13 +29,13 @@ export default () => {
         axios.get(`${VITE_API_URL}/playlists/${slug}`, axiosHeaders(token))
             .then(res => {
                 setPlaylist(res.data)
-                
+
             })
             .catch((e) => {
                 console.log(e.message)
                 setError(true)
             })
-    }, [slug,refreshPlst])
+    }, [slug, refreshPlst])
 
     useEffect(() => {
         axios.get(`${VITE_API_URL}/tracks`, axiosHeaders(token))
@@ -118,7 +118,7 @@ export default () => {
                                         <h1>{playlist.title}</h1>
                                         <div className="info">
                                             <span>visibility</span>
-                                        {playlist.is_public ?
+                                            {playlist.is_public ?
                                                 <p className="public">public</p>
                                                 : <p className="private">private</p>
                                             }
@@ -186,8 +186,6 @@ export default () => {
                                             </div>
                                         </form>
                                     }
-
-
                                 </div>
                                 <div className="single-plst list-wrapper">
                                     <h2>Current tracks</h2>
@@ -211,20 +209,24 @@ export default () => {
                                                         </div>
                                                         <div className="details">
                                                             <div>
+                                                                <span>{`author`}</span>
+                                                                <span>{t.author}</span>
+                                                            </div>
+                                                            <div>
                                                                 <span>{`duration`}</span>
                                                                 <span>{formatDuration(t.duration_sec)}</span>
                                                             </div>
                                                         </div>
                                                     </Link>
                                                     {user._id === playlist.created_by._id &&
-                                                    <button
-                                                        className="btn remove"
-                                                        onClick={(e) => {
-                                                            removeTrack(i)
-                                                        }}
-                                                    >
-                                                        X
-                                                    </button>
+                                                        <button
+                                                            className="btn remove"
+                                                            onClick={(e) => {
+                                                                removeTrack(i)
+                                                            }}
+                                                        >
+                                                            X
+                                                        </button>
                                                     }
                                                 </li>
                                             )
@@ -232,9 +234,9 @@ export default () => {
                                     </ul>
                                 </div>
                                 {
-                                    feedback.message &&  
-                                    < InfoBox type={feedback.type} message={feedback.message} onClose={()=>{
-                                        setFeedback({type:'',message:''})
+                                    feedback.message &&
+                                    < InfoBox type={feedback.type} message={feedback.message} onClose={() => {
+                                        setFeedback({ type: '', message: '' })
                                     }} />
                                 }
                             </article>
@@ -280,14 +282,14 @@ export default () => {
                                                                             </div>
                                                                         </div>
                                                                     </Link>
-                                                                        <button
-                                                                            className="btn add"
-                                                                            onClick={() => {
-                                                                                addTrack(t._id)
-                                                                            }}
-                                                                        >
-                                                                            +
-                                                                        </button>
+                                                                    <button
+                                                                        className="btn add"
+                                                                        onClick={() => {
+                                                                            addTrack(t._id)
+                                                                        }}
+                                                                    >
+                                                                        +
+                                                                    </button>
                                                                 </li>
                                                             )
                                                         })}

@@ -1,9 +1,9 @@
+
 //==================== COLORS =====================
 
 $teal-primary: #1fdbb2;
 $teal-secondary: #199479;
-$blue: #1E798D;
-$orange: rgb(209, 82, 44);
+$orange: #d1522c;
 $light-grey-1: #969797;
 $light-grey-2: #E4E4E4;
 $dark-grey-1: rgba(35, 36, 36, 0.973);
@@ -35,12 +35,14 @@ $gap-xxl : 5rem;
 $nav-height : 40px;
 $section-shadow: 1px 10px 16px 0px rgba(0, 0, 0, 0.4);
 $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
+
 //================= BREAKPOINTS ===================
-@mixin breakpoint($bp: 3840){
-    @media (max-width: $bp){
+@mixin breakpoint($bp: 3840) {
+    @media (max-width: $bp) {
         @content
     }
 }
+
 //==================== STYLE ======================
 
 .app-container {
@@ -117,8 +119,6 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     }
 }
 
-
-
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -150,14 +150,17 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     gap: $gap-xs;
-    .feedback{
+
+    .feedback {
         color: $teal-secondary;
     }
+
     .warning {
         color: $orange;
         font-weight: 500;
     }
-    .infobox-btn{
+
+    .infobox-btn {
         color: $dark-grey-2;
         height: 1.2em;
         width: 1.2em;
@@ -189,6 +192,7 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
 
 .page {
     min-height: 100svh;
+    background-image: url(./assets/page_background.png);
     display: grid;
     grid-template-rows: auto 1fr;
     justify-content: center;
@@ -196,9 +200,10 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     gap: $gap-l;
 }
 
-.page.not-found{
+.page.not-found {
     grid-template-rows: none;
-    div{
+
+    div {
         background-color: $dark-grey-1;
         padding: $gap-l;
         margin: auto;
@@ -217,14 +222,47 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     }
 }
 
+.page.home {
+    grid-template-rows: auto;
+    text-align: center;
+    text-transform: uppercase;
+    place-content: center;
+
+    h1 {
+        font-size: $f-size-xxl;
+    }
+
+    figure {
+        margin: $gap-l;
+    }
+    div {
+        display: grid;
+        gap: $gap-m;
+        h3 {
+            &:nth-child(2) {
+                color: $orange;
+            }
+            &:nth-child(3) {
+                color: $teal-secondary;
+            }
+            &:last-child {
+                color: $teal-primary;
+            }
+        }
+    }
+   
+}
+
 .page.single-plst,
 .page.single-track {
     display: flex;
-    @include breakpoint(768px){
+
+    @include breakpoint(768px) {
         display: grid;
         grid-template-rows: auto, 1fr;
         grid-template-columns: 1fr;
     }
+
     .container {
         min-height: 90svh;
         grid-template-rows: auto 1fr;
@@ -237,28 +275,31 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
         }
 
         .single-plst-wrapper,
-        .single-track-wrapper{
+        .single-track-wrapper {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            h1{
+
+            h1 {
                 margin: $gap-m 0;
             }
 
-            figure{
+            figure {
                 height: 200px;
                 width: 200px;
                 border-radius: 0.35em;
                 border: 1px solid $teal-secondary;
                 overflow: hidden;
                 margin-bottom: $gap-m;
-                img{
+
+                img {
                     object-fit: cover;
                 }
             }
 
-            .public{
+            .public {
                 color: $teal-primary;
             }
+
             .private {
                 color: $orange;
             }
@@ -267,7 +308,14 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
                 display: grid;
                 grid-template-columns: auto 1fr;
                 gap: $gap-s;
+                align-items: center;
+                span, p{
+                    font-size: $f-size-xs;
+                    font-weight: 500;
+                }
                 span {
+                    
+                    text-transform: uppercase;
                     color: $teal-secondary;
                 }
             }
@@ -276,11 +324,12 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
                 display: grid;
                 align-items: right;
                 margin: $gap-m 0;
+
                 .duration {
                     display: grid;
                     grid-template-columns: repeat(2, 1fr);
                     gap: $gap-s;
-        
+
                     input {
                         min-width: 78px;
                     }
@@ -288,25 +337,29 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
             }
 
             .button-wrapper {
-                
+
                 display: flex;
                 justify-content: space-between;
                 gap: $gap-s;
-                @include breakpoint(576px){
+
+                @include breakpoint(576px) {
                     display: grid;
-                    justify-content: center;                    
+                    justify-content: center;
                 }
             }
         }
-        .single-plst.list-wrapper{
+
+        .single-plst.list-wrapper {
             text-align: left;
+
             ul {
                 max-height: 500px;
                 overflow-y: auto;
             }
         }
+
         .playlists.list-wrapper.container,
-        .tracks.list-wrapper.container{
+        .tracks.list-wrapper.container {
             ul {
                 max-height: 750px;
                 overflow-y: auto;
@@ -336,12 +389,13 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     min-width: 40vw;
     max-width: 1000px;
     text-align: center;
-    h2{
+
+    h2 {
         margin: $gap-m 0;
     }
 
     ul {
-
+        padding-right: $gap-s;
         .l-item:nth-child(even) {
             background-color: $dark-grey-3;
         }
@@ -349,12 +403,13 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
         .l-item {
             width: 100%;
             min-width: 300px;
-            min-height: 42px;;
+            min-height: 42px;
+            ;
             padding: $gap-xxs $gap-xxs $gap-xxs $gap-xs ;
             border-radius: .35em;
             display: grid;
             align-items: center;
-            grid-template-columns: 1fr 32px;        
+            grid-template-columns: 1fr 32px;
             gap: $gap-s;
             border: 1px solid $dark-grey-4;
 
@@ -363,10 +418,12 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 grid-template-rows: 1fr;
-                @include breakpoint(576px){
+
+                @include breakpoint(576px) {
                     grid-template-columns: 1fr;
-                    grid-template-rows: auto auto ;
+                    grid-template-rows: auto auto;
                 }
+
                 justify-content: space-between;
                 gap: $gap-m;
 
@@ -402,13 +459,16 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
                     div {
                         width: 100%;
                         display: grid;
-                        grid-template-columns: repeat(2,1fr);
-                        @include breakpoint(576px){
+                        grid-template-columns: repeat(2, 1fr);
+
+                        @include breakpoint(576px) {
                             grid-template-columns: auto auto
                         }
+
                         gap: $gap-s;
                         justify-content: flex-start;
                         align-items: center;
+
                         span:first-child {
                             font-size: $f-size-xs;
                             color: $teal-secondary;
