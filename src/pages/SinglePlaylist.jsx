@@ -5,6 +5,7 @@ import axios from "axios";
 import { axiosHeaders, formatDuration } from "../../libraries/utilities";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
+import InfoBox from "../components/InfoBox";
 const { VITE_API_URL } = import.meta.env;
 
 export default () => {
@@ -12,14 +13,15 @@ export default () => {
     const { user, token } = useUser()
     const { slug } = useParams()
 
-    const blankPlaylist = { title: '', is_public: '' }
+    const blankPlaylist = { title: '', is_public: false }
     const [error, setError] = useState();
-    const [feedback, setFeedback] = useState();
+    const [feedback, setFeedback] = useState({ type: '', message: '' });
     const [playlist, setPlaylist] = useState();
     const [plstNewData, setPlstNewData] = useState(blankPlaylist)
     const [tracks, setTracks] = useState();
+    const [refreshPlst, setRefreshPlst] = useState(false)
+    const [refreshTrk, setRefreshTrk] = useState(false)
     const navigate = useNavigate();
-    let userIsOwner
 
     //============================== GET DI PLAYLIST E TRACKS ==============================
 
@@ -27,13 +29,13 @@ export default () => {
         axios.get(`${VITE_API_URL}/playlists/${slug}`, axiosHeaders(token))
             .then(res => {
                 setPlaylist(res.data)
-                // userIsOwner = user._id === playlist.created_by._id
+                
             })
             .catch((e) => {
                 console.log(e.message)
                 setError(true)
             })
-    }, [slug])
+    }, [slug,refreshPlst])
 
     useEffect(() => {
         axios.get(`${VITE_API_URL}/tracks`, axiosHeaders(token))
@@ -43,7 +45,7 @@ export default () => {
                 setError(e.message)
                 console.error(e.message)
             })
-    }, [])
+    }, [refreshTrk])
 
     //===================================== FUNZIONI =====================================
 
@@ -60,9 +62,10 @@ export default () => {
             axios.patch(`${VITE_API_URL}/playlists/${slug}`, validData, axiosHeaders(token))
                 .then(res => {
                     setPlaylist(res.data)
-                    setFeedback('Playlist updated')
+                    setFeedback({ type: 'feedback', message: 'Playlist updated' })
                     navigate(`/playlists/${res.data.slug}`)
                     setPlstNewData(blankPlaylist)
+                    setRefreshPlst(!refreshPlst)
                 }).catch(e => console.error(e.message))
         }
     }
@@ -70,7 +73,7 @@ export default () => {
     const deletePlaylist = (slug) => {
         axios.delete(`${VITE_API_URL}/playlists/${slug}`, axiosHeaders(token))
             .then(res => {
-                setFeedback('Playlist deleted')
+                setFeedback({ type: 'feedback', message: 'Playlist deleted' })
                 navigate('/playlists')
             }).catch(e => console.error(e.message))
     }
@@ -79,9 +82,10 @@ export default () => {
         axios.patch(`${VITE_API_URL}/playlists/${slug}`, { track_list: trackId }, axiosHeaders(token))
             .then(res => {
                 setPlaylist(res.data)
-                setFeedback('Track added')
+                setFeedback({ type: 'feedback', message: 'Track added' })
+                setRefreshTrk(!refreshTrk)
             }).catch(e => {
-                setFeedback('There was an error')
+                setFeedback({ type: 'warning', message: 'There was an error' })
                 console.error(e)
             })
     }
@@ -90,14 +94,14 @@ export default () => {
         axios.patch(`${VITE_API_URL}/playlists/${slug}/remove_track`, { remove: index }, axiosHeaders(token))
             .then(res => {
                 setPlaylist(res.data)
-                setFeedback('Track removed')
+                setFeedback({ type: 'feedback', message: 'Track removed' })
+                setRefreshPlst(!refreshPlst)
             }).catch(e => {
-                setFeedback('There was an error')
+                setFeedback({ type: 'warning', message: 'There was an error' })
                 console.error(e)
             })
     }
 
-    console.log(playlist);
     return (<>
         {error ?
             <NotFound />
@@ -112,11 +116,12 @@ export default () => {
                                 <div className="single-plst-wrapper">
                                     <div>
                                         <h1>{playlist.title}</h1>
-                                        {playlist.is_public ?
-                                            <span className="public">public</span>
-                                            : <span className="private">private</span>
-                                        }
                                         <div className="info">
+                                            <span>visibility</span>
+                                        {playlist.is_public ?
+                                                <p className="public">public</p>
+                                                : <p className="private">private</p>
+                                            }
                                             <span>posted by</span>
                                             <p>{playlist.created_by.display_name}</p>
                                             <span>created</span>
@@ -206,7 +211,7 @@ export default () => {
                                                         </div>
                                                         <div className="details">
                                                             <div>
-                                                                <span>{`duration: `}</span>
+                                                                <span>{`duration`}</span>
                                                                 <span>{formatDuration(t.duration_sec)}</span>
                                                             </div>
                                                         </div>
@@ -226,8 +231,14 @@ export default () => {
                                         })}
                                     </ul>
                                 </div>
+                                {
+                                    feedback.message &&  
+                                    < InfoBox type={feedback.type} message={feedback.message} onClose={()=>{
+                                        setFeedback({type:'',message:''})
+                                    }} />
+                                }
                             </article>
-                            {playlist && user && user._id === playlist.created_by._id &&
+                            {user._id === playlist.created_by._id &&
                                 <>
                                     {tracks === undefined ?
                                         <p>Loading...</p>
@@ -249,7 +260,7 @@ export default () => {
                                                                 >
                                                                     <Link
                                                                         to={`/tracks/${t.slug}`}
-                                                                        className="link l-item-link"
+                                                                        className="l-item-link"
                                                                     >
                                                                         <div className="core">
                                                                             <figure>
@@ -260,11 +271,11 @@ export default () => {
                                                                         </div>
                                                                         <div className="details">
                                                                             <div>
-                                                                                <span>{`author: `}</span>
+                                                                                <span>{`author`}</span>
                                                                                 <span>{t.author}</span>
                                                                             </div>
                                                                             <div>
-                                                                                <span>{`duration: `}</span>
+                                                                                <span>{`duration`}</span>
                                                                                 <span>{formatDuration(t.duration_sec)}</span>
                                                                             </div>
                                                                         </div>

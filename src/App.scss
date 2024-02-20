@@ -35,6 +35,13 @@ $gap-xxl : 5rem;
 $nav-height : 40px;
 $section-shadow: 1px 10px 16px 0px rgba(0, 0, 0, 0.4);
 $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
+//================= BREAKPOINTS ===================
+@mixin breakpoint($bp: 3840){
+    @media (max-width: $bp){
+        @content
+    }
+}
+//==================== STYLE ======================
 
 .app-container {
     background-color: $dark-grey-1;
@@ -139,12 +146,27 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     background-color: $light-grey-2;
     border-radius: 0.35em;
     margin: auto;
-
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: $gap-xs;
+    .feedback{
+        color: $teal-secondary;
+    }
     .warning {
         color: $orange;
         font-weight: 500;
     }
+    .infobox-btn{
+        color: $dark-grey-2;
+        height: 1.2em;
+        width: 1.2em;
+        display: grid;
+        place-content: center;
+    }
 }
+
+
 
 .btn {
     font-size: inherit;
@@ -198,7 +220,11 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
 .page.single-plst,
 .page.single-track {
     display: flex;
-
+    @include breakpoint(768px){
+        display: grid;
+        grid-template-rows: auto, 1fr;
+        grid-template-columns: 1fr;
+    }
     .container {
         min-height: 90svh;
         grid-template-rows: auto 1fr;
@@ -262,12 +288,29 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
             }
 
             .button-wrapper {
+                
                 display: flex;
                 justify-content: space-between;
+                gap: $gap-s;
+                @include breakpoint(576px){
+                    display: grid;
+                    justify-content: center;                    
+                }
             }
         }
         .single-plst.list-wrapper{
             text-align: left;
+            ul {
+                max-height: 500px;
+                overflow-y: auto;
+            }
+        }
+        .playlists.list-wrapper.container,
+        .tracks.list-wrapper.container{
+            ul {
+                max-height: 750px;
+                overflow-y: auto;
+            }
         }
     }
 }
@@ -305,19 +348,25 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
 
         .l-item {
             width: 100%;
+            min-width: 300px;
             min-height: 42px;;
             padding: $gap-xxs $gap-xxs $gap-xxs $gap-xs ;
             border-radius: .35em;
             display: grid;
-            grid-template-columns: 1fr 32px;
+            align-items: center;
+            grid-template-columns: 1fr 32px;        
             gap: $gap-s;
             border: 1px solid $dark-grey-4;
 
-            a {
+            .l-item-link {
                 width: 100%;
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 grid-template-rows: 1fr;
+                @include breakpoint(576px){
+                    grid-template-columns: 1fr;
+                    grid-template-rows: auto auto ;
+                }
                 justify-content: space-between;
                 gap: $gap-m;
 
@@ -354,6 +403,9 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
                         width: 100%;
                         display: grid;
                         grid-template-columns: repeat(2,1fr);
+                        @include breakpoint(576px){
+                            grid-template-columns: auto auto
+                        }
                         gap: $gap-s;
                         justify-content: flex-start;
                         align-items: center;
@@ -528,8 +580,4 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
         margin: $gap-m;
         width: 250px;
     }
-}
-
-.hide{
-    display: none !important;
 }

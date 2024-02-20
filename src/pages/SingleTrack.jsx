@@ -2,9 +2,10 @@ import { useEffect, useState } from "react"
 import NotFound from "../components/NotFound"
 import { useUser } from "../../context/UserContext";
 import axios from "axios";
-import { axiosHeaders, formatDuration } from "../../libraries/utilities";
+import { axiosHeaders, convertToSeconds, formatDuration } from "../../libraries/utilities";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
+import InfoBox from "../components/InfoBox";
 const { VITE_API_URL } = import.meta.env;
 
 export default () => {
@@ -12,15 +13,16 @@ export default () => {
     const { user, token } = useUser()
     const { slug } = useParams()
 
-    const blankTrack = { title: '', author: '', duration_sec: 0, is_public: '', img_path: '' }
     const blankDuration = { min: 0, sec: 0 }
     const [error, setError] = useState();
-    const [feedback, setFeedback] = useState();
+    const [feedback, setFeedback] = useState({ type: '', message: '' });
     const [track, setTrack] = useState();
+    const blankTrack = { title: '', author: '', duration_sec: 0, is_public: false, img_path: '' }
     const [duration, setDuration] = useState(blankDuration)
     const [trkNewData, setTrkNewData] = useState(blankTrack);
     const [playlists, setPlaylists] = useState();
-    const [refresh, setRefresh] = useState(false)
+    const [refreshPlst, setRefreshPlst] = useState(false)
+    const [refreshTrk, setRefreshTrk] = useState(false)
     const navigate = useNavigate();
 
     //============================== GET DI TRACK E PLAYLISTS ==============================
@@ -34,7 +36,7 @@ export default () => {
                 console.log(e.message)
                 setError(true)
             })
-    }, [slug, refresh])
+    }, [slug, refreshTrk])
 
     useEffect(() => {
         axios.get(`${VITE_API_URL}/playlists`, axiosHeaders(token))
@@ -51,7 +53,7 @@ export default () => {
                 setError(e.message)
                 console.error(e.message)
             })
-    }, [])
+    }, [refreshPlst])
 
     //===================================== FUNZIONI =====================================
 
@@ -67,10 +69,11 @@ export default () => {
             axios.patch(`${VITE_API_URL}/tracks/${slug}`, validData, axiosHeaders(token))
                 .then(res => {
                     setTrack(res.data)
-                    setFeedback('Track updated')
+                    setFeedback({ type: 'feedback', message: 'Track updated' })
                     navigate(`/tracks/${res.data.slug}`)
                     setTrkNewData(blankTrack)
-                    setRefresh(!refresh)
+                    setDuration(blankDuration)
+                    setRefreshTrk(!refreshTrk)
                 }).catch(e => console.error(e.message))
 
         }
@@ -79,7 +82,7 @@ export default () => {
     const deleteTrack = (slug) => {
         axios.delete(`${VITE_API_URL}/tracks/${slug}`, axiosHeaders(token))
             .then(res => {
-                setFeedback('Track deleted')
+                setFeedback({ type: 'feedback', message: 'Track deleted' })
                 navigate('/tracks')
             }).catch(e => console.error(e.message))
     }
@@ -87,10 +90,10 @@ export default () => {
     const addToPlaylist = (plstSlug) => {
         axios.patch(`${VITE_API_URL}/playlists/${plstSlug}`, { track_list: track._id }, axiosHeaders(token))
             .then(res => {
-                setFeedback('Track added')
-                // setRefresh(!refresh)
+                setFeedback({ type: 'feedback', message: 'Track added' })
+                setRefreshPlst(!refreshPlst)
             }).catch(e => {
-                setFeedback('There was an error')
+                setFeedback({ type: 'warning', message: 'There was an error' })
                 console.error(e)
             })
     }
@@ -121,11 +124,16 @@ export default () => {
                                         <figure>
                                             <img src={track.img_path} alt="Track image" />
                                         </figure>
-                                        {track.is_public ?
-                                            <span className="public">public</span>
-                                            : <span className="private">private</span>
-                                        }
                                         <div className="info">
+                                            <span>visibility</span>
+                                            {track.is_public ?
+                                                <p className="public">public</p>
+                                                : <p className="private">private</p>
+                                            }
+                                            <span>author</span>
+                                            <p>{track.author}</p>
+                                            <span>duration</span>
+                                            <p>{formatDuration(track.duration_sec)}</p>
                                             <span>posted by</span>
                                             <p>{track.created_by.display_name}</p>
                                             <span>created</span>
@@ -245,7 +253,11 @@ export default () => {
                                                 <button className="btn edit"
                                                     onClick={(e) => {
                                                         e.preventDefault()
-                                                        editTrack(trkNewData)
+                                                        editTrack(
+                                                            {
+                                                                ...trkNewData,
+                                                                duration_sec: convertToSeconds(Number(duration.min), Number(duration.sec))
+                                                            })
                                                     }}
                                                 >Save changes</button>
                                                 <button
@@ -261,6 +273,14 @@ export default () => {
                                         </form>
                                     }
                                 </div>
+                                    
+                                {
+                                    feedback.message &&  
+                                    < InfoBox type={feedback.type} message={feedback.message} onClose={()=>{
+                                        setFeedback({type:'',message:''})
+                                    }} />
+                                }
+                               
                             </article>
                             {user._id === track.created_by._id &&
                                 <>
@@ -284,7 +304,7 @@ export default () => {
                                                                 >
                                                                     <Link
                                                                         to={`/playlists/${p.slug}`}
-                                                                        className="link l-item-link"
+                                                                        className="l-item-link"
                                                                     >
                                                                         <div className="core">
                                                                             <span>{p.title}</span>

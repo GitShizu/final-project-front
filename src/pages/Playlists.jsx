@@ -23,6 +23,7 @@ export default () => {
     const [newPlaylist, setNewPlaylist] = useState(blankPlaylist)
     const [error, setError] = useState();
     const [feedback, setFeedback] = useState()
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         axios.get(`${VITE_API_URL}/playlists`, axiosHeaders(token))
@@ -32,7 +33,7 @@ export default () => {
                 setError(e.message)
                 console.error(e.message)
             })
-    }, [])
+    }, [refresh])
     //===================================== FUNCTIONS =====================================
 
     const addPlaylist = (playlist) => {
@@ -40,6 +41,7 @@ export default () => {
             .then(res => {
                 setPlaylists(res.data)
                 setFeedback('Playlist added successfully')
+                setRefresh(!refresh)
                 setNewPlaylist(blankPlaylist)
             })
             .catch(e => {
