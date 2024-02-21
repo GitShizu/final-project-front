@@ -23,21 +23,14 @@ export const UserProvider = ({ children }) => {
 
     const signUp = async ({ display_name, email, password, password2 }) => {
 
-        if (loading) return;
-        // Se loading è true significa che è già in corso un'operazione
-        // di signup o login. L'esecuzione viene interrotta. 
+        if (loading) return; 
 
         setError(null);
-        setLoading(true);
-        //L'errore viene settato al valore iniziale null.
-        //Lo state loading viene settato a true per impedire l'esecuzione
-        //di ulteriori operazioni di signup o login (come sopra).
+        setLoading(true);        
 
         if (password !== password2) {
             throw new Error("Password doesn't match")
         }
-        //Se i valori immessi nei campi "password" e "conferma password" non corrispondono
-        //viene lanciato un errore. 
         try {
             const { data: userAndToken } = await axios.post(`${VITE_API_URL}/auth/signup`, {
                 display_name,
@@ -45,21 +38,20 @@ export const UserProvider = ({ children }) => {
                 password
             })
             changeUserData(userAndToken);
-            //Chiamata POST alla rotta /auth/signup. 
-            //Nel body viene inviato un oggetto che include come proprietà le credenziali fornite.
-            //Nella proprietà data la response ritorna un oggetto che contiene lo user e il token. 
-            //Salviamo l'oggetto nella variabile userAndToken.
-            //Eseguiamo ChangeUserData con userAndToken come argomento per aggiornare 
-            //il valore di userData e salvarlo sul local storage.
         } catch (error) {
             console.error(error)
             setError(error.message);
         } finally {
             setLoading(false)
-            //Che sia andata a buon fine o meno, l'operazione di signup è conclusa.
-            //Loading viene settato a false.
+            
         }
     }
+    // Se loading è true significa che è già in corso un signup o login. L'esecuzione viene interrotta.
+    //Lo state loading viene settato a true per impedire l'esecuzione contemporanea di altri login o signup.
+    //funzione per il signup. Chiamata post alla rotta signup che restituisce un oggetto contenente user e token in response.data.
+    //Aggiorna il valore di userData con l'oggetto restituito dalla response e lo salva sul local storage. 
+    //Che sia andata a buon fine o meno, l'operazione di signup è conclusa. Loading viene settato a false.
+            
 
     const logIn = async ({ email, password }) => {
         if (loading) return;
@@ -87,6 +79,7 @@ export const UserProvider = ({ children }) => {
             user: null
         })
     }
+    //funzione per il logout. Lo user e il valore di user_data nel local storage vengono settati a null.
 
     const value = {
         ...userData,
@@ -96,6 +89,7 @@ export const UserProvider = ({ children }) => {
         error,
         loading
     }
+    //value contiene tutte ciò che sarà accessibile dai componenti racchiusi nel context provider.
 
     return (
         <UserContext.Provider value={value}>
@@ -113,3 +107,4 @@ export const useUser = () => {
 
     return context;
 }
+//hook per accedere al contenuto di value.

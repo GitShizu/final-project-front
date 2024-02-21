@@ -119,3 +119,4 @@ export default ({ type }) => {
         </section>
     )
 }
+//componente che mostra una pagina di login o signup in base al parametro type. 

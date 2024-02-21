@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import NotFound from "../components/NotFound"
 import { useUser } from "../../context/UserContext";
-import axios from "axios";
+import axios from "../../libraries/axiosConfig";
 import { axiosHeaders, formatDuration } from "../../libraries/utilities";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";

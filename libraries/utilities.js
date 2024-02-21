@@ -5,6 +5,7 @@ export const axiosHeaders = (token) =>{
         }
     }
 }
+//funzione d'appoggio che genera l'header per l'autorizzazione via token da includere nelle chiamate. 
 
 export const formatDuration = (seconds) => {
     const hours = Math.floor(seconds / 3600);
@@ -21,8 +22,12 @@ export const formatDuration = (seconds) => {
     }
     
 }
+//funzione d'appoggio che accetta come argomento un valore in secondi e restituisce una stringa 
+//che rappresenta una durata in ore,minuti e secondi oppure solo minuti e secondi se le ore sono 0.
 
 export const convertToSeconds = (minutes,seconds) =>{
     const totalSeconds = minutes*60 + seconds
     return totalSeconds
 }
+//funzione d'appoggio che accetta come argomenti un valore in minuti e uno in secondi. 
+//converte la durata in secondi e la restituisce.

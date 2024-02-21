@@ -41,3 +41,5 @@ export default ({ type, message,onClose }) => {
         }
     </>)
 }
+//componente che prende come argomento un tipo di messaggio e il suo testo. Genera un div con classe uguale al tipo 
+//e il testo del messaggio come contenuto. Scompare dopo 5 sec. Include una funzione che può essere richiamata alla chiusura. 

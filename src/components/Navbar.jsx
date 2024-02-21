@@ -20,7 +20,7 @@ export default () => {
           </Link>
         </figure>
 
-        {user &&
+        {user && //rotte a cui viene permesso l'accesso se l'utente è loggato
           <>
             <li>
               <NavLink className={'navlink'} to={'/playlists'} end>Playlists</NavLink>
@@ -43,7 +43,7 @@ export default () => {
             </div>
           </>
         }
-        {!user &&
+        {!user && //rotte a cui viene permesso l'accesso se l'utente non è loggato
           <>
             <li>
               <NavLink className={'navlink'} to={'/signup'} element={<SignUser type='signup' />} >Sign Up</NavLink>
