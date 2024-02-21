@@ -106,6 +106,7 @@ export default () => {
                                 <input
                                     placeholder=""
                                     required
+                                    maxLength={50}
                                     value={newPlaylist.title}
                                     onChange={(e) => {
                                         setNewPlaylist(

@@ -44,6 +44,7 @@ export default ({ type }) => {
                                 <input
                                     placeholder=""
                                     required
+                                    maxLength={24}
                                     value={formData.display_name}
                                     onChange={(e) => {
                                         setFormData({

@@ -17,7 +17,7 @@ export default () => {
     const [error, setError] = useState();                                                          //state che contiene eventuali errori nel get della traccia
     const [feedback, setFeedback] = useState({ type: '', message: '' });                           //state che contiene l'esito di un'operazione 
     const [track, setTrack] = useState();                                                          //state che contiene la singola traccia
-    const blankTrack = { title: '', author: '', duration_sec: 0, is_public: false, img_path: '' }  
+    const blankTrack = { title: '', author: '', duration_sec: 0, is_public: false, img_path: '' }
     const [duration, setDuration] = useState(blankDuration)                                        //state che contiene i value degli input per minuti e secondi
     const [trkNewData, setTrkNewData] = useState(blankTrack);                                       //state che contiene i value degli input (tranne minuti e secondi)
     const [playlists, setPlaylists] = useState();                                                   //state che contiene la lista di playlists
@@ -125,8 +125,8 @@ export default () => {
                         <section className="page single-track">
                             <article className="single-track container">
                                 <div className="single-track-wrapper">
-                                {/* //dati della traccia */}
-                                    <div>                                                                         
+                                    {/* //dati della traccia */}
+                                    <div>
                                         <h1>{track.title}</h1>
                                         <figure>
                                             <img src={track.img_path} alt="Track image" />
@@ -150,8 +150,8 @@ export default () => {
                                         </div>
                                     </div>
                                     {user.is_admin || user._id === track.created_by._id &&          //rendering condizionale che mostra il form solo a un admin o all'utente che ha creato la traccia.
-                                         //form per modificare i dati della traccia                 
-                                        <form className="form">                                                 
+                                        //form per modificare i dati della traccia                 
+                                        <form className="form">
                                             <div className="toggle-wrapper">
                                                 <span>{trkNewData.is_public ? 'Public' : 'Private'}</span>
                                                 <input
@@ -175,6 +175,7 @@ export default () => {
                                                 <input
                                                     placeholder=""
                                                     required
+                                                    maxLength={30}
                                                     value={trkNewData.title}
                                                     onChange={(e) => {
                                                         setTrkNewData(
@@ -191,6 +192,7 @@ export default () => {
                                                 <input
                                                     placeholder=""
                                                     required
+                                                    maxLength={30}
                                                     value={trkNewData.author}
                                                     onChange={(e) => {
                                                         setTrkNewData(
@@ -217,6 +219,7 @@ export default () => {
                                                                     min: e.target.value
                                                                 }
                                                             )
+
                                                         }}
                                                         type='number' />
                                                     <label>Minutes</label>
@@ -281,14 +284,14 @@ export default () => {
                                         </form>
                                     }
                                 </div>
-                                    
+
                                 {
-                                    feedback.message &&  
-                                    < InfoBox type={feedback.type} message={feedback.message} onClose={()=>{
-                                        setFeedback({type:'',message:''})
+                                    feedback.message &&
+                                    < InfoBox type={feedback.type} message={feedback.message} onClose={() => {
+                                        setFeedback({ type: '', message: '' })
                                     }} />
                                 }
-                               
+
                             </article>
                             {user.is_admin || user._id === track.created_by._id &&                               //rendering condizionale che mostra la lista solo a un admin o all'utente che ha creato la traccia.
                                 <>
@@ -302,7 +305,7 @@ export default () => {
                                                 </div>
                                                 :
                                                 //lista di playlist a cui poter aggiungere la traccia
-                                                <section className="playlists list-wrapper container">          
+                                                <section className="playlists list-wrapper container">
                                                     <h2>Add track to existent playlist</h2>
                                                     <ul>
                                                         {playlists.map((p, i) => {

@@ -161,6 +161,7 @@ export default () => {
                                                 <input
                                                     placeholder=""
                                                     required
+                                                    maxLength={50}
                                                     value={plstNewData.title}
                                                     onChange={(e) => {
                                                         setPlstNewData(
