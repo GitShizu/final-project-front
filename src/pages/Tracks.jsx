@@ -18,11 +18,13 @@ export default () => {
         img_path: undefined
     }
     const blankDuration = { min: 0, sec: 0 }
-    const [tracks, setTracks] = useState();
-    const [newTrack, setNewTrack] = useState(blankTrack)
-    const [duration, setDuration] = useState(blankDuration)
-    const [error, setError] = useState();
-    const [feedback, setFeedback] = useState()
+    const [tracks, setTracks] = useState();                          //state che contiene la lista di tracce
+    const [newTrack, setNewTrack] = useState(blankTrack)             //state che contiene i value degli input (tranne min e sec)
+    const [duration, setDuration] = useState(blankDuration)          //state che contiene i value degli input per min e sec
+    const [error, setError] = useState();                            //state che contiene eventuali errori nel get delle tracce
+    const [feedback, setFeedback] = useState()                       //state che contiene l'esito di un'operazione 
+
+    //================================== GET DELLE TRACCE =================================
 
     useEffect(() => {
         axios.get(`${VITE_API_URL}/tracks`, axiosHeaders(token))
@@ -33,7 +35,7 @@ export default () => {
                 console.error(e.message)
             })
     }, [])
-    //===================================== FUNCTIONS =====================================
+    //===================================== FUNZIONI =====================================
 
     const addTrack = (track) => {
         axios.post(`${VITE_API_URL}/tracks`, track, axiosHeaders(token))
@@ -48,6 +50,7 @@ export default () => {
                 console.error(e)
             })
     }
+    //crea una nuova traccia usando come body l'oggetto che prende come argomento
 
     const removeTrack = (slug) => {
         axios.delete(`${VITE_API_URL}/tracks/${slug}`, axiosHeaders(token))
@@ -56,6 +59,7 @@ export default () => {
                 setFeedback('Track deleted successfully')
             }).catch(e => console.error(e.message))
     }
+    //prende come argomento uno slug ed elimina la traccia corrispondente
 
     return (<>
         <section className="page tracks">
@@ -63,7 +67,7 @@ export default () => {
                 <p>{error}</p>
                 :
                 <>
-                    <article className="tracks form-wrapper container">
+                    <article className="tracks form-wrapper container">    //contenitore del form per aggiungere nuova traccia
                         <h2>Add new Track</h2>
                         <form className="form">
                             <div className="toggle-wrapper">
@@ -198,7 +202,7 @@ export default () => {
                             {tracks.length === 0 ?
                                 <p>No tracks found</p>
                                 :
-                                <article className="tracks container">
+                                <article className="tracks container">  //contenitore della lista di tracce
                                     <div className="list-wrapper">
                                         <ul>
                                             {tracks.map((t, i) => {

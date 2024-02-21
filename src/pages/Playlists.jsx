@@ -10,7 +10,7 @@ import InfoBox from "../components/InfoBox"
 
 export default () => {
 
-    const { user, token } = useUser();
+    const { user, token } = useUser();                                 //user e token vengono destrutturati dal context
 
     const blankPlaylist = {
         title: '',
@@ -19,11 +19,13 @@ export default () => {
         created_by: ''
     }
 
-    const [playlists, setPlaylists] = useState();
-    const [newPlaylist, setNewPlaylist] = useState(blankPlaylist)
-    const [error, setError] = useState();
-    const [feedback, setFeedback] = useState()
-    const [refresh, setRefresh] = useState(false);
+    const [playlists, setPlaylists] = useState();                      //state che contiene la lista di playlist
+    const [newPlaylist, setNewPlaylist] = useState(blankPlaylist)      //state che contiene i value degli input
+    const [error, setError] = useState();                              //state che contiene eventuali errori nel get delle playlist
+    const [feedback, setFeedback] = useState({ type: '', message: '' })//state che contiene l'esito di un'operazione 
+    const [refresh, setRefresh] = useState(false);                     //state che funziona da interruttore per innescare un rerender del componente
+
+    //================================= GET DELLE PLAYLIST ================================
 
     useEffect(() => {
         axios.get(`${VITE_API_URL}/playlists`, axiosHeaders(token))
@@ -34,7 +36,8 @@ export default () => {
                 console.error(e.message)
             })
     }, [refresh])
-    //===================================== FUNCTIONS =====================================
+
+    //===================================== FUNZIONI =====================================
 
     const addPlaylist = (playlist) => {
         axios.post(`${VITE_API_URL}/playlists`, playlist, axiosHeaders(token))
@@ -49,6 +52,7 @@ export default () => {
                 console.error(e)
             })
     }
+    //crea una nuova playlist usando come body l'oggetto che prende come argomento
 
     const deletePlaylist = (slug) => {
         axios.delete(`${VITE_API_URL}/playlists/${slug}`, axiosHeaders(token))
@@ -57,6 +61,7 @@ export default () => {
                 setFeedback('Playlist deleted successfully')
             }).catch(e => console.error(e.message))
     }
+    //prende come argomento uno slug ed elimina la playlist corrispondente
 
     const getDuration = (playlist) => {
         let duration = 0
@@ -66,6 +71,8 @@ export default () => {
         const formattedDuration = formatDuration(duration)
         return formattedDuration
     }
+    //calcola la durata totale della playlist sommando le durate delle tracce attualmente incluse. 
+    //formatta la durata da secondi a ore, minuti e secondi usando una funzione d'appoggio(vedi libraries/utilities/formatDuration)
 
     return (<>
         <section className="page playlists">
@@ -73,7 +80,7 @@ export default () => {
                 <InfoBox type={'warning'} message={error.message} />
                 :
                 <>
-                    <article className="playlists form-wrapper container">
+                    <article className="playlists form-wrapper container">   //contenitore del form per aggiungere nuova playlist
                         <h2>Add new Playlist</h2>
                         <form className="form">
                             <div className="toggle-wrapper">
@@ -135,7 +142,7 @@ export default () => {
                             {playlists.length === 0 ?
                                 <InfoBox type={'feedback'} message={'No playlists found'} />
                                 :
-                                <article className="playlists container">
+                                <article className="playlists container">   //contenitore della lista di playlist
                                     <div className="list-wrapper">
                                         <ul>
                                             {playlists.map((p, i) => {

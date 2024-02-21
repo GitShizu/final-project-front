@@ -14,13 +14,13 @@ export default () => {
     const { slug } = useParams()
 
     const blankPlaylist = { title: '', is_public: false }
-    const [error, setError] = useState();
-    const [feedback, setFeedback] = useState({ type: '', message: '' });
-    const [playlist, setPlaylist] = useState();
-    const [plstNewData, setPlstNewData] = useState(blankPlaylist)
-    const [tracks, setTracks] = useState();
-    const [refreshPlst, setRefreshPlst] = useState(false)
-    const [refreshTrk, setRefreshTrk] = useState(false)
+    const [error, setError] = useState();                                   //state che contiene eventuali errori nel get della playlist
+    const [feedback, setFeedback] = useState({ type: '', message: '' });    //state che contiene l'esito di un'operazione 
+    const [playlist, setPlaylist] = useState();                             //state che contiene la singola playlist
+    const [plstNewData, setPlstNewData] = useState(blankPlaylist)           //state che contiene i value degli input
+    const [tracks, setTracks] = useState();                                 //state che contiene la lista di tracce
+    const [refreshPlst, setRefreshPlst] = useState(false)                   //state che funziona da interruttore per innescare un rerender del componente
+    const [refreshTrk, setRefreshTrk] = useState(false)                     //state che funziona da interruttore per innescare un rerender del componente
     const navigate = useNavigate();
 
     //============================== GET DI PLAYLIST E TRACKS ==============================
@@ -69,6 +69,8 @@ export default () => {
                 }).catch(e => console.error(e.message))
         }
     }
+    //controlla quali valori sono stati compilati e fa un patch usando come body un oggetto che contiene solo le 
+    //proprietà compilate. 
 
     const deletePlaylist = (slug) => {
         axios.delete(`${VITE_API_URL}/playlists/${slug}`, axiosHeaders(token))
@@ -77,6 +79,7 @@ export default () => {
                 navigate('/playlists')
             }).catch(e => console.error(e.message))
     }
+    //elimina la playlist
 
     const addTrack = (trackId) => {
         axios.patch(`${VITE_API_URL}/playlists/${slug}`, { track_list: trackId }, axiosHeaders(token))
@@ -89,6 +92,7 @@ export default () => {
                 console.error(e)
             })
     }
+    //aggiunge una traccia alla playlist
 
     const removeTrack = (index) => {
         axios.patch(`${VITE_API_URL}/playlists/${slug}/remove_track`, { remove: index }, axiosHeaders(token))
@@ -101,6 +105,7 @@ export default () => {
                 console.error(e)
             })
     }
+    //rimuove una traccia dalla playlist
 
     return (<>
         {error ?
@@ -113,8 +118,8 @@ export default () => {
                     <>
                         <section className="page single-plst">
                             <article className="single-plst container">
-                                <div className="single-plst-wrapper">
-                                    <div>
+                                <div className="single-plst-wrapper">       
+                                    <div>                                                               //dati della playlist
                                         <h1>{playlist.title}</h1>
                                         <div className="info">
                                             <span>visibility</span>
@@ -130,8 +135,8 @@ export default () => {
                                             <p>{dayjs(playlist.updatedAt).format('DD-MM-YYYY')}</p>
                                         </div>
                                     </div>
-                                    {playlist && user && user._id === playlist.created_by._id &&
-                                        <form className="form">
+                                    {user.is_admin || user._id === playlist.created_by._id &&        //rendering condizionale che mostra il form solo all'utente che ha creato la playlist e agli admin
+                                        <form className="form">                                         //form per modificare i dati della playlist
                                             <div className="toggle-wrapper">
                                                 <span>{plstNewData.is_public ? 'Public' : 'Private'}</span>
                                                 <input
@@ -187,7 +192,7 @@ export default () => {
                                         </form>
                                     }
                                 </div>
-                                <div className="single-plst list-wrapper">
+                                <div className="single-plst list-wrapper">                              //lista di tracce attualmente incluse nella playlist
                                     <h2>Current tracks</h2>
                                     <ul>
                                         {playlist.track_list.map((t, i) => {
@@ -218,8 +223,8 @@ export default () => {
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    {user._id === playlist.created_by._id &&
-                                                        <button
+                                                    {user.is_admin || user._id === playlist.created_by._id &&              //rendering condizionale che mostra il bottone solo se 
+                                                        <button                                                            //l'utente loggato è il creatore di questa playlist o è un admin
                                                             className="btn remove"
                                                             onClick={(e) => {
                                                                 removeTrack(i)
@@ -240,8 +245,8 @@ export default () => {
                                     }} />
                                 }
                             </article>
-                            {user._id === playlist.created_by._id &&
-                                <>
+                            {user.is_admin || user._id === playlist.created_by._id &&                   //rendering condizionale che mostra la lista solo se
+                                <>                                                                      //l'utente loggato è il creatore di questa playlist o è un admin
                                     {tracks === undefined ?
                                         <p>Loading...</p>
                                         :
@@ -251,7 +256,7 @@ export default () => {
                                                     <p>No tracks found</p>
                                                 </div>
                                                 :
-                                                <section className="tracks list-wrapper container">
+                                                <section className="tracks list-wrapper container">      //lista di tracce da poter includere nella playlist
                                                     <h2>Add existent tracks to playlist</h2>
                                                     <ul>
                                                         {tracks.map((t, i) => {
