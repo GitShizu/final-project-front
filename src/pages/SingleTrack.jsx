@@ -125,7 +125,8 @@ export default () => {
                         <section className="page single-track">
                             <article className="single-track container">
                                 <div className="single-track-wrapper">
-                                    <div>                                                                         //dati della traccia
+                                {/* //dati della traccia */}
+                                    <div>                                                                         
                                         <h1>{track.title}</h1>
                                         <figure>
                                             <img src={track.img_path} alt="Track image" />
@@ -148,8 +149,9 @@ export default () => {
                                             <p>{dayjs(track.updatedAt).format('DD-MM-YYYY')}</p>
                                         </div>
                                     </div>
-                                    {user.is_admin || user._id === track.created_by._id &&                      //rendering condizionale che mostra il form solo a un admin o all'utente che ha creato la traccia.
-                                        <form className="form">                                                 //form per modificare i dati della traccia
+                                    {user.is_admin || user._id === track.created_by._id &&          //rendering condizionale che mostra il form solo a un admin o all'utente che ha creato la traccia.
+                                         //form per modificare i dati della traccia                 
+                                        <form className="form">                                                 
                                             <div className="toggle-wrapper">
                                                 <span>{trkNewData.is_public ? 'Public' : 'Private'}</span>
                                                 <input
@@ -299,7 +301,8 @@ export default () => {
                                                     <p>No playlists found</p>
                                                 </div>
                                                 :
-                                                <section className="playlists list-wrapper container">          //lista di playlist a cui poter aggiungere la traccia
+                                                //lista di playlist a cui poter aggiungere la traccia
+                                                <section className="playlists list-wrapper container">          
                                                     <h2>Add track to existent playlist</h2>
                                                     <ul>
                                                         {playlists.map((p, i) => {

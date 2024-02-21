@@ -67,7 +67,8 @@ export default () => {
                 <p>{error}</p>
                 :
                 <>
-                    <article className="tracks form-wrapper container">    //contenitore del form per aggiungere nuova traccia
+                     {/* contenitore del form per aggiungere nuova traccia */}
+                    <article className="tracks form-wrapper container">   
                         <h2>Add new Track</h2>
                         <form className="form">
                             <div className="toggle-wrapper">
@@ -202,7 +203,8 @@ export default () => {
                             {tracks.length === 0 ?
                                 <p>No tracks found</p>
                                 :
-                                <article className="tracks container">  //contenitore della lista di tracce
+                                 //contenitore della lista di tracce
+                                <article className="tracks container"> 
                                     <div className="list-wrapper">
                                         <ul>
                                             {tracks.map((t, i) => {

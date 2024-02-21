@@ -119,7 +119,8 @@ export default () => {
                         <section className="page single-plst">
                             <article className="single-plst container">
                                 <div className="single-plst-wrapper">       
-                                    <div>                                                               //dati della playlist
+                                                {/* //dati della playlist */}
+                                    <div>                                                               
                                         <h1>{playlist.title}</h1>
                                         <div className="info">
                                             <span>visibility</span>
@@ -136,7 +137,8 @@ export default () => {
                                         </div>
                                     </div>
                                     {user.is_admin || user._id === playlist.created_by._id &&        //rendering condizionale che mostra il form solo all'utente che ha creato la playlist e agli admin
-                                        <form className="form">                                         //form per modificare i dati della playlist
+                                        //form per modificare i dati della playlist 
+                                        <form className="form">                                         
                                             <div className="toggle-wrapper">
                                                 <span>{plstNewData.is_public ? 'Public' : 'Private'}</span>
                                                 <input
@@ -192,7 +194,8 @@ export default () => {
                                         </form>
                                     }
                                 </div>
-                                <div className="single-plst list-wrapper">                              //lista di tracce attualmente incluse nella playlist
+                                {/* //lista di tracce attualmente incluse nella playlist */}
+                                <div className="single-plst list-wrapper">                              
                                     <h2>Current tracks</h2>
                                     <ul>
                                         {playlist.track_list.map((t, i) => {
@@ -245,8 +248,8 @@ export default () => {
                                     }} />
                                 }
                             </article>
-                            {user.is_admin || user._id === playlist.created_by._id &&                   //rendering condizionale che mostra la lista solo se
-                                <>                                                                      //l'utente loggato è il creatore di questa playlist o è un admin
+                            {user.is_admin || user._id === playlist.created_by._id &&                   //rendering condizionale che mostra la lista solo se l'utente loggato è il creatore di questa playlist o è un admin
+                                <>                                                                      
                                     {tracks === undefined ?
                                         <p>Loading...</p>
                                         :
@@ -256,7 +259,8 @@ export default () => {
                                                     <p>No tracks found</p>
                                                 </div>
                                                 :
-                                                <section className="tracks list-wrapper container">      //lista di tracce da poter includere nella playlist
+                                                //lista di tracce da poter includere nella playlist
+                                                <section className="tracks list-wrapper container">      
                                                     <h2>Add existent tracks to playlist</h2>
                                                     <ul>
                                                         {tracks.map((t, i) => {

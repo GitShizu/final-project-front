@@ -80,7 +80,8 @@ export default () => {
                 <InfoBox type={'warning'} message={error.message} />
                 :
                 <>
-                    <article className="playlists form-wrapper container">   //contenitore del form per aggiungere nuova playlist
+                    {/* contenitore del form per aggiungere nuova playlist */}
+                    <article className="playlists form-wrapper container">   
                         <h2>Add new Playlist</h2>
                         <form className="form">
                             <div className="toggle-wrapper">
@@ -142,7 +143,8 @@ export default () => {
                             {playlists.length === 0 ?
                                 <InfoBox type={'feedback'} message={'No playlists found'} />
                                 :
-                                <article className="playlists container">   //contenitore della lista di playlist
+                                //contenitore della lista di playlist
+                                <article className="playlists container">   
                                     <div className="list-wrapper">
                                         <ul>
                                             {playlists.map((p, i) => {
