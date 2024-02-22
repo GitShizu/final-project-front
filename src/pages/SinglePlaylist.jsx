@@ -230,7 +230,7 @@ export default () => {
                                                             </div>
                                                         </div>
                                                     </Link>
-                                                    {user.is_admin || user._id === playlist.created_by._id &&              //rendering condizionale che mostra il bottone solo se 
+                                                    {(user.is_admin || user._id === playlist.created_by._id) &&              //rendering condizionale che mostra il bottone solo se 
                                                         <button                                                            //l'utente loggato è il creatore di questa playlist o è un admin
                                                             className="btn remove"
                                                             onClick={(e) => {
