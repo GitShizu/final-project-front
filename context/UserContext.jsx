@@ -67,7 +67,7 @@ export const UserProvider = ({ children }) => {
             changeUserData(userAndToken);
         } catch (error) {
             console.error(error);
-            setError(error.message);
+            setError(error.data);
         } finally {
             setLoading(false)
         }
