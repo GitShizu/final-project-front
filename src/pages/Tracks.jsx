@@ -197,7 +197,7 @@ export default () => {
 
                     </article>
                     {tracks === undefined ?
-                        <p>Loading...</p>
+                        <Loading />
                         :
                         <>
                             {tracks.length === 0 ?

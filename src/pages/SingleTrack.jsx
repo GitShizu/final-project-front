@@ -119,7 +119,7 @@ export default () => {
             :
             <>
                 {track === undefined ?
-                    <p>Loading...</p>
+                    <Loading />
                     :
                     <>
                         <section className="page single-track">
@@ -296,7 +296,7 @@ export default () => {
                             {user.is_admin || user._id === track.created_by._id &&                               //rendering condizionale che mostra la lista solo a un admin o all'utente che ha creato la traccia.
                                 <>
                                     {playlists === undefined ?
-                                        <p>Loading...</p>
+                                        <Loading />
                                         :
                                         <>
                                             {playlists.length === 0 ?

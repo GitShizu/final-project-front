@@ -113,7 +113,7 @@ export default () => {
             :
             <>
                 {playlist === undefined ?
-                    <p>Loading...</p>
+                    <Loading />
                     :
                     <>
                         <section className="page single-plst">
@@ -252,7 +252,7 @@ export default () => {
                             {user.is_admin || user._id === playlist.created_by._id &&                   //rendering condizionale che mostra la lista solo se l'utente loggato è il creatore di questa playlist o è un admin
                                 <>                                                                      
                                     {tracks === undefined ?
-                                        <p>Loading...</p>
+                                        <Loading />
                                         :
                                         <>
                                             {tracks.length === 0 ?
