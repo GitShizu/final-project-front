@@ -6,6 +6,7 @@ import { axiosHeaders, formatDuration } from "../../libraries/utilities";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import InfoBox from "../components/InfoBox";
+import Loading from "../components/Loading";
 const { VITE_API_URL } = import.meta.env;
 
 export default () => {
