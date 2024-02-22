@@ -47,7 +47,11 @@ export default () => {
                         plst.created_by._id.toString() === user._id.toString()
                     )
                 })
-                setPlaylists(filteredList)
+                if (user.is_admin) {
+                    setPlaylists(res.data);
+                } else {
+                    setPlaylists(filteredList)
+                }
             }
             )
             .catch(e => {
@@ -113,7 +117,7 @@ export default () => {
     }
     //calcola la durata totale della playlist sommando le durate delle tracce attualmente incluse. 
     //formatta la durata da secondi a ore, minuti e secondi usando una funzione d'appoggio(vedi libraries/utilities/formatDuration)
-
+    console.log(playlists);
     return (<>
         {error ?
             <NotFound />
@@ -152,7 +156,7 @@ export default () => {
                                             <p>{dayjs(track.updatedAt).format('DD-MM-YYYY')}</p>
                                         </div>
                                     </div>
-                                    {user.is_admin || user._id === track.created_by._id &&          //rendering condizionale che mostra il form solo a un admin o all'utente che ha creato la traccia.
+                                    {(user.is_admin || user._id === track.created_by._id) &&          //rendering condizionale che mostra il form solo a un admin o all'utente che ha creato la traccia.
                                         //form per modificare i dati della traccia                 
                                         <form className="form">
                                             <div className="toggle-wrapper">
@@ -296,7 +300,7 @@ export default () => {
                                 }
 
                             </article>
-                            {user.is_admin || user._id === track.created_by._id &&                               //rendering condizionale che mostra la lista solo a un admin o all'utente che ha creato la traccia.
+                            {(user.is_admin || user._id === track.created_by._id) &&                               //rendering condizionale che mostra la lista solo a un admin o all'utente che ha creato la traccia.
                                 <>
                                     {playlists === undefined ?
                                         <Loading />

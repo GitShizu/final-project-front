@@ -36,7 +36,7 @@ export default () => {
                 console.log(e.message)
                 setError(true)
             })
-    }, [slug, refreshPlst])
+    }, [slug,refreshPlst])
 
     useEffect(() => {
         axios.get(`${VITE_API_URL}/tracks`, axiosHeaders(token))
@@ -64,7 +64,7 @@ export default () => {
                 .then(res => {
                     setPlaylist(res.data)
                     setFeedback({ type: 'feedback', message: 'Playlist updated' })
-                    navigate(`/playlists/${res.data.slug}`)
+                    {navigate(`/playlists/${res.data.slug}`)}
                     setPlstNewData(blankPlaylist)
                     setRefreshPlst(!refreshPlst)
                 }).catch(e => console.error(e.message))
@@ -107,7 +107,7 @@ export default () => {
             })
     }
     //rimuove una traccia dalla playlist
-
+   
     return (<>
         {error ?
             <NotFound />
@@ -139,7 +139,7 @@ export default () => {
                                             <p>{dayjs(playlist.updatedAt).format('DD-MM-YYYY')}</p>
                                         </div>
                                     </div>
-                                    {user.is_admin || user._id === playlist.created_by._id &&        //rendering condizionale che mostra il form solo all'utente che ha creato la playlist e agli admin
+                                    {(user.is_admin || user._id === playlist.created_by._id) &&        //rendering condizionale che mostra il form solo all'utente che ha creato la playlist e agli admin
                                         //form per modificare i dati della playlist 
                                         <form className="form">                                         
                                             <div className="toggle-wrapper">
@@ -252,7 +252,7 @@ export default () => {
                                     }} />
                                 }
                             </article>
-                            {user.is_admin || user._id === playlist.created_by._id &&                   //rendering condizionale che mostra la lista solo se l'utente loggato è il creatore di questa playlist o è un admin
+                            {(user.is_admin || user._id === playlist.created_by._id) &&                   //rendering condizionale che mostra la lista solo se l'utente loggato è il creatore di questa playlist o è un admin
                                 <>                                                                      
                                     {tracks === undefined ?
                                         <Loading />
