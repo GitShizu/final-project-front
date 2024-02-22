@@ -114,7 +114,9 @@ export default () => {
             :
             <>
                 {playlist === undefined ?
-                    <Loading />
+                   <section className="page">
+                       <Loading />
+                   </section>
                     :
                     <>
                         <section className="page single-plst">

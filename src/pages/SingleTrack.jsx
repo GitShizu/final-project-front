@@ -120,7 +120,9 @@ export default () => {
             :
             <>
                 {track === undefined ?
-                    <Loading />
+                    <section className="page">
+                        <Loading />
+                    </section>
                     :
                     <>
                         <section className="page single-track">
