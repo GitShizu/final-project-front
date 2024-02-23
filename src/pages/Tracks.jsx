@@ -149,7 +149,7 @@ export default () => {
                                             max='60'
                                             placeholder=""
                                             required
-                                            value={duration.sec > 0 ? duration.min : ''}
+                                            value={duration.sec > 0 ? duration.sec : ''}
                                             onChange={(e) => {
                                                 setDuration(
                                                     {
