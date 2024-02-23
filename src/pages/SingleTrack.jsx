@@ -276,12 +276,21 @@ export default () => {
                                                         e.preventDefault()
                                                         const editDuration = duration.min !== '' || duration.sec !== ''
                                                         if(editDuration){
-                                                            editTrack(
-                                                                {
-                                                                    ...trkNewData,
-                                                                        duration_sec: convertToSeconds(Number(duration.min !=='' ? duration.min : 0), Number(duration.sec!=='' ? duration.sec : 0))
-                                                                    
-                                                                })  
+                                                            if(duration.min === ''){
+                                                                editTrack(
+                                                                    {
+                                                                        ...trkNewData,
+                                                                            duration_sec: Number(duration.sec)
+                                                                        
+                                                                    })  
+                                                            }else{
+                                                                editTrack(
+                                                                    {
+                                                                        ...trkNewData,
+                                                                            duration_sec: convertToSeconds(Number(duration.min), Number(duration.sec))
+                                                                        
+                                                                    })  
+                                                            }
                                                         }else{
                                                             editTrack(
                                                                 {
