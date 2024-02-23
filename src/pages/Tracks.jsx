@@ -166,7 +166,7 @@ export default () => {
                                     <input
                                         placeholder=""
                                         required
-                                        value={newTrack.img_path}
+                                        value={newTrack.img_path === undefined? '':newTrack.img_path}
                                         onChange={(e) => {
                                             setNewTrack(
                                                 {
