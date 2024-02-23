@@ -65,7 +65,7 @@ export default () => {
     const editTrack = (newData) => {
         const validData = {}
         Object.entries(newData).forEach(([key, value]) => {
-            if (value) {
+            if (value !== '' && value !== undefined && value !== 0) {
                 validData[key] = value
             }
         })
