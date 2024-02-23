@@ -68,8 +68,8 @@ export default () => {
                 <p>{error}</p>
                 :
                 <>
-                     {/* contenitore del form per aggiungere nuova traccia */}
-                    <article className="tracks form-wrapper container">   
+                    {/* contenitore del form per aggiungere nuova traccia */}
+                    <article className="tracks form-wrapper container">
                         <h2>Add new Track</h2>
                         <form className="form">
                             <div className="toggle-wrapper">
@@ -151,12 +151,14 @@ export default () => {
                                             required
                                             value={duration.sec > 0 ? duration.sec : ''}
                                             onChange={(e) => {
-                                                setDuration(
-                                                    {
-                                                        ...duration,
-                                                        sec: e.target.value
-                                                    }
-                                                )
+                                                if (e.target.value.length < 2) {
+                                                    setDuration(
+                                                        {
+                                                            ...duration,
+                                                            sec: e.target.value
+                                                        }
+                                                    )
+                                                }
                                             }}
                                             type='number' />
                                         <label>Seconds</label>
@@ -166,7 +168,7 @@ export default () => {
                                     <input
                                         placeholder=""
                                         required
-                                        value={newTrack.img_path === undefined? '':newTrack.img_path}
+                                        value={newTrack.img_path === undefined ? '' : newTrack.img_path}
                                         onChange={(e) => {
                                             setNewTrack(
                                                 {
@@ -204,8 +206,8 @@ export default () => {
                             {tracks.length === 0 ?
                                 <p>No tracks found</p>
                                 :
-                                 //contenitore della lista di tracce
-                                <article className="tracks container"> 
+                                //contenitore della lista di tracce
+                                <article className="tracks container">
                                     <div className="list-wrapper">
                                         <ul>
                                             {tracks.map((t, i) => {
@@ -238,13 +240,13 @@ export default () => {
                                                         </Link>
                                                         {user._id === t.created_by._id &&
                                                             <button
-                                                            className="btn remove"
-                                                            onClick={() => {
-                                                                removeTrack(t.slug)
-                                                            }}
-                                                        >
-                                                            <RiDeleteBin6Line className="trash_icon" />
-                                                        </button>
+                                                                className="btn remove"
+                                                                onClick={() => {
+                                                                    removeTrack(t.slug)
+                                                                }}
+                                                            >
+                                                                <RiDeleteBin6Line className="trash_icon" />
+                                                            </button>
                                                         }
                                                     </li>
                                                 )
