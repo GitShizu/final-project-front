@@ -43,10 +43,12 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     }
 }
 
-//==================== STYLE ======================
+//================= COMPONENTS ====================
 
 .app-container {
     background-color: $dark-grey-1;
+
+//================= NAVBAR ========================
 
     nav {
         width: 100%;
@@ -128,7 +130,7 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
         transform: rotate(-360deg);
     }
 }
-
+//================= LOADING ANIMATION ===================
 .loading {
     margin: auto;
     height: 150px;
@@ -139,7 +141,7 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
         animation: spin 1s infinite linear;
     }
 }
-
+//================= INFO BOX COMPONENT ==================
 .InfoBox {
     width: fit-content;
     padding: 0 1em;
@@ -169,7 +171,7 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     }
 }
 
-
+//============ BUTTONS ================================
 
 .btn {
     font-size: inherit;
@@ -189,6 +191,8 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
 .btn.remove {
     background-color: $orange;
 }
+
+//====================== PAGES ==============================
 
 .page {
     min-height: 100svh;
@@ -361,14 +365,16 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
         .playlists.list-wrapper.container,
         .tracks.list-wrapper.container {
             ul {
-                max-height: 750px;
+                max-height: 600px;
                 overflow-y: auto;
             }
         }
     }
 }
 
-.container {
+//===================== CONTAINER ELEMENTS ========================
+
+.container {                                 //=== GENERIC CONTAINER
     min-width: 50vw;
     background-color: $dark-grey-2;
     padding: $gap-s;
@@ -385,7 +391,9 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     justify-content: center;
 }
 
-.list-wrapper {
+
+
+.list-wrapper {                             //=== LISTS
     min-width: 40vw;
     max-width: 1000px;
     text-align: center;
@@ -506,7 +514,7 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
     }
 }
 
-.form-wrapper {
+.form-wrapper {                           //==== FORMS
     height: fit-content;
     text-align: center;
     padding: $gap-m;
