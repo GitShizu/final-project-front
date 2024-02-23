@@ -418,14 +418,15 @@ $button-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.4);
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 grid-template-rows: 1fr;
+                justify-content: space-between;
+                gap: $gap-m;
 
                 @include breakpoint(576px) {
                     grid-template-columns: 1fr;
                     grid-template-rows: auto auto;
                 }
 
-                justify-content: space-between;
-                gap: $gap-m;
+                
 
                 .core {
                     display: flex;

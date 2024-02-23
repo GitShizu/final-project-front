@@ -21,7 +21,6 @@ export default () => {
     const [plstNewData, setPlstNewData] = useState(blankPlaylist)           //state che contiene i value degli input
     const [tracks, setTracks] = useState();                                 //state che contiene la lista di tracce
     const [refreshPlst, setRefreshPlst] = useState(false)                   //state che funziona da interruttore per innescare un rerender del componente
-    const [refreshTrk, setRefreshTrk] = useState(false)                     //state che funziona da interruttore per innescare un rerender del componente
     const navigate = useNavigate();
 
     //============================== GET DI PLAYLIST E TRACKS ==============================
@@ -46,7 +45,7 @@ export default () => {
                 setError(e.message)
                 console.error(e.message)
             })
-    }, [refreshTrk])
+    }, [refreshPlst])
 
     //===================================== FUNZIONI =====================================
 
@@ -87,7 +86,7 @@ export default () => {
             .then(res => {
                 setPlaylist(res.data)
                 setFeedback({ type: 'feedback', message: 'Track added' })
-                setRefreshTrk(!refreshTrk)
+                setRefreshPlst(!refreshPlst)
             }).catch(e => {
                 setFeedback({ type: 'warning', message: 'There was an error' })
                 console.error(e)
