@@ -16,7 +16,7 @@ export default () => {
         author: '',
         duration_sec: 0,
         is_public: false,
-        img_path: undefined
+        img_path: ''
     }
     const blankDuration = { min: 0, sec: 0 }
     const [tracks, setTracks] = useState();                          //state che contiene la lista di tracce
@@ -39,7 +39,11 @@ export default () => {
     //===================================== FUNZIONI =====================================
 
     const addTrack = (track) => {
-        axios.post(`${VITE_API_URL}/tracks`, track, axiosHeaders(token))
+        let newTrack = track
+        if(track.img_path === ''){
+            newTrack.img_path= undefined
+        }
+        axios.post(`${VITE_API_URL}/tracks`, newTrack, axiosHeaders(token))
             .then(res => {
                 setTracks(res.data)
                 setFeedback('Track added successfully')
@@ -151,7 +155,7 @@ export default () => {
                                             required
                                             value={duration.sec > 0 ? duration.sec : ''}
                                             onChange={(e) => {
-                                                if (e.target.value.length < 2) {
+                                                if (e.target.value.length <= 2) {
                                                     setDuration(
                                                         {
                                                             ...duration,
@@ -168,7 +172,7 @@ export default () => {
                                     <input
                                         placeholder=""
                                         required
-                                        value={newTrack.img_path === undefined ? '' : newTrack.img_path}
+                                        value={newTrack.img_path}
                                         onChange={(e) => {
                                             setNewTrack(
                                                 {
