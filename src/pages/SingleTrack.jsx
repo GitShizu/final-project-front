@@ -65,7 +65,7 @@ export default () => {
     const editTrack = (newData) => {
         const validData = {}
         Object.entries(newData).forEach(([key, value]) => {
-            if (value !== '' && value !== undefined) {
+            if (value) {
                 validData[key] = value
             }
         })
@@ -117,7 +117,7 @@ export default () => {
     }
     //calcola la durata totale della playlist sommando le durate delle tracce attualmente incluse. 
     //formatta la durata da secondi a ore, minuti e secondi usando una funzione d'appoggio(vedi libraries/utilities/formatDuration)
-    console.log(playlists);
+    
     return (<>
         {error ?
             <NotFound />
