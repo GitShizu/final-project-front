@@ -40,8 +40,8 @@ export default () => {
 
     const addTrack = (track) => {
         let newTrack = track
-        if(track.img_path === ''){
-            newTrack.img_path= undefined
+        if (track.img_path === '') {
+            newTrack.img_path = undefined
         }
         axios.post(`${VITE_API_URL}/tracks`, newTrack, axiosHeaders(token))
             .then(res => {
@@ -137,12 +137,14 @@ export default () => {
                                             required
                                             value={duration.min > 0 ? duration.min : ''}
                                             onChange={(e) => {
-                                                setDuration(
-                                                    {
-                                                        ...duration,
-                                                        min: e.target.value
-                                                    }
-                                                )
+                                                if (e.target.value.length <= 2) {
+                                                    setDuration(
+                                                        {
+                                                            ...duration,
+                                                            min: e.target.value
+                                                        }
+                                                    )
+                                                }
                                             }}
                                             type='number' />
                                         <label>Minutes</label>

@@ -220,12 +220,14 @@ export default () => {
                                                         required
                                                         value={duration.min > 0 ? duration.min : ''}
                                                         onChange={(e) => {
-                                                            setDuration(
-                                                                {
-                                                                    ...duration,
-                                                                    min: e.target.value
-                                                                }
-                                                            )
+                                                            if (e.target.value.length <= 2) {
+                                                                setDuration(
+                                                                    {
+                                                                        ...duration,
+                                                                        min: e.target.value
+                                                                    }
+                                                                )
+                                                            }
 
                                                         }}
                                                         type='number' />
@@ -239,13 +241,14 @@ export default () => {
                                                         required
                                                         value={duration.sec > 0 ? duration.sec : ''}
                                                         onChange={(e) => {
-
-                                                            setDuration(
-                                                                {
-                                                                    ...duration,
-                                                                    sec: e.target.value
-                                                                }
-                                                            )
+                                                            if (e.target.value.length <= 2) {
+                                                                setDuration(
+                                                                    {
+                                                                        ...duration,
+                                                                        sec: e.target.value
+                                                                    }
+                                                                )
+                                                            }
                                                         }}
                                                         type='number' />
                                                     <label>Seconds</label>
